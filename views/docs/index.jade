@@ -1,0 +1,8 @@
+extends layout
+
+block main
+  if (docs.lenght > 0)
+    each doc in docs
+      span= doc.title
+  else
+    p.kicker= __('You have no cards under your control. Start by creating one.')

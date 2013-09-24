@@ -1,0 +1,34 @@
+{
+  "name": "scissors",
+  "version": "0.0.1",
+  "description": "Scissors — lightweight wiki server",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/EduArea/scissors"
+  },
+  "author": "Boris Okunskiy",
+  "license": "MIT",
+  "dependencies": {
+    "express": "*",
+    "jade": "*",
+    "stylus": "*",
+    "nib": "*",
+    "async": "*",
+    "mongoose": "*",
+    "rho": "*",
+    "moment": "*",
+    "underscore": "*",
+    "connect-redis": "*",
+    "extend": "*",
+    "cheerio": "*",
+    "i18n-2": "*",
+    "diff": "*",
+    "request": "*",
+    "mkdirp": "*",
+    "latinize": "*",
+    "nomnom": "*"
+  },
+  "devDependencies": {
+    "mocha": "*"
+  }
+}

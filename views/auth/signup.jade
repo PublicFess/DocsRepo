@@ -1,0 +1,34 @@
+extends layout
+
+extends layout
+
+block form
+  form.partial(
+  method='post',
+  action='/signup')
+    .ctl-row
+      label= __('User name')
+        input#name.field.focus(
+        name='user[name]',
+        type='text')
+    .ctl-row
+      label= __('Email')
+        input#password.field(
+        name='user[email]',
+        type='email')
+    .ctl-row
+      label= __('Password')
+        input#password.field(
+        name='user[password]',
+        type='password')
+    .submits.margin-top.centered
+      button.btn.primary(type='submit')
+        span= __('Sign up')
+
+block append content
+  .pad
+    .row
+      .span-3 &nbsp;
+      .span-6
+        block form
+      .span-3 &nbsp;

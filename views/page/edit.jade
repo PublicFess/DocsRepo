@@ -1,0 +1,39 @@
+extends layout
+
+block append content
+  #topnav
+    if (text)
+      .title
+        span= __('Editing ')
+        code= relPath
+      .controls
+        a(href='#{relPath}.html')
+          i.icon-eye-open
+          span= __('View page')
+    else
+      .title
+        span= __('Creating ')
+        code= relPath
+  form.partial.unload-warn(method='post',
+  action='#{relPath}.html.edit')
+    table.grid(width='100%')
+      tr.top.border-bottom
+        td(width='49.5%')
+          textarea#text.focus.field.hollow.autosize(
+          name='text',
+          cols='80',
+          rows='24',
+          data-load-into='#preview',
+          data-url='/render')= text
+        td.sep(width='1%').no-mobile-screen
+        td(width='49.5%').no-mobile-screen
+          #preview.remote-fragment.pad!= html
+    .submits.centered.pad
+      button.btn.primary(type='submit')
+        i.icon-ok
+        span= __('Save')
+      if (text)
+        a.btn(href='#{relPath}.html')
+          i.icon-eye-open
+          span= __('View page')
+

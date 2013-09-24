@@ -1,0 +1,62 @@
+#!/usr/bin/env node
+'use strict';
+
+var opts = require("nomnom")
+  .option('mongo', {
+    abbr: 'm',
+    help: 'Mongo connection string'
+  })
+  .option('name', {
+    help: 'User name',
+    required: true
+  })
+  .option('password', {
+    help: 'Password'
+  })
+  .option('remove', {
+    flag: true,
+    help: 'Remove the user with specified name'
+  })
+  .option('disabled', {
+    flag: true,
+    help: 'User will unable to edit pages'
+  })
+  .parse();
+
+var conf = require('../conf')
+  , User = require('../model/user')
+  , mongoose = require('mongoose');
+
+// Override configuration stuff
+
+if (opts.mongo) {
+  conf.mongoURI = opts.mongo;
+}
+
+function done(err) {
+  if (err) {
+    console.log(err);
+    process.exit(1);
+  } else process.exit(0);
+}
+
+mongoose.connect(conf.mongoURI, function(err) {
+  if (err) done(err);
+  // Removing user if --remove
+  if (opts.remove)
+    return User.remove({ name: opts.name }).exec(done);
+  // Find a user by name
+  User.findOne({ name: opts.name })
+    .exec(function(err, user) {
+      if (err) done(err);
+      if (!user) {
+        user = new User({ name: opts.name, editor: !opts.disabled });
+        user.setPassword(opts.password || "");
+      } else {
+        if (opts.password)
+          user.setPassword(opts.password);
+        user.editor = !opts.disabled;
+      }
+      user.save(done);
+    });
+});

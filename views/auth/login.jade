@@ -1,0 +1,33 @@
+extends layout
+
+block form
+  form.partial(
+  method='post',
+  action='/login')
+    .ctl-row
+      label(for='name')= __('User name')
+      input#name.field.focus(
+      name='user[name]',
+      type='text')
+    .ctl-row
+      label(for='password')= __('Password')
+      input#password.field(
+      name='user[password]',
+      type='password')
+    .submits.margin-top.centered
+      button.btn.primary(type='submit')
+        span= __('Login')
+      span= __(' or ')
+      a.noline(href='/')
+        span= __(' go back')
+
+block append content
+  .pad
+    .row
+      .span-3 &nbsp;
+      .span-6
+        h2= __('Heads up!')
+        p.subtitle= __('You need to login in order to make changes around here.')
+        block form
+      .span-3 &nbsp;
+

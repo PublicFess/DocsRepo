@@ -1,0 +1,151 @@
+.hidden { display:none }
+.block { display:block }
+.inline-block { display:inline-block }
+
+// Alignment
+
+.centered { text-align:center }
+.left-align { text-align:left }
+.right-align { text-align:right }
+.justify { text-align:justify }
+.middle, .middle * { vertical-align:middle }
+
+// Positioning
+
+.clear { clear:both }
+.no-overflow { overflow:hidden }
+
+.left-float, .float-left { float:left }
+.right-float, .float-right { float:right }
+
+.no-margin { margin: 0 !important }
+.no-pad { padding: 0 !important }
+
+.relative { position:relative }
+
+.outside
+  margin-left: (padsize * -1)
+  margin-right: (padsize * -1)
+
+.inside
+  padding-left: padsize
+  padding-right: padsize
+
+@media screen and (min-width:961px)
+  .outside
+    margin-left:(padsize * -6)
+    margin-right:(padsize * -6)
+
+  .inside
+    padding-left:(padsize * 6)
+    padding-right:(padsize * 6)
+
+// Decoration
+
+.no-underline, a.no-underline, .no-underline a
+  text-decoration: none !important
+
+// Bordering
+
+.border { border: 1px solid #ccc }
+.border-left { border-left: 1px solid #ccc }
+.border-right { border-right: 1px solid #ccc }
+.border-top { border-top: 1px solid #ccc }
+.border-bottom { border-bottom: 1px solid #ccc }
+
+// Fonts
+
+.sans
+  font-family: font-sans
+  font-weight: font-sans-weight
+
+.serif
+  font-family: font-serif
+  font-weight: font-serif-weight
+
+// Standard paddings and margins are 8px
+
+.pad { padding:padsize }
+.pad-left { padding-left:padsize }
+.pad-right { padding-right:padsize }
+.pad-top { padding-top:padsize }
+.pad-bottom { padding-bottom:padsize }
+.pad-side { padding-left:padsize; padding-right:padsize }
+
+.tinypad { padding:4px }
+.tinypad-left { padding-left:4px }
+.tinypad-right { padding-right:4px }
+.tinypad-top { padding-top:4px }
+.tinypad-bottom { padding-bottom:4px }
+.tinypad-side { padding-left:4px; padding-right:4px }
+
+.margin { margin:padsize }
+.margin-left { margin-left:padsize }
+.margin-right { margin-right:padsize }
+.margin-top { margin-top:padsize }
+.margin-bottom { margin-bottom:padsize }
+.margin-side { margin-left:padsize; margin-right:padsize }
+
+.tinymargin { margin:4px }
+.tinymargin-left { margin-left:4px }
+.tinymargin-right { margin-right:4px }
+.tinymargin-top { margin-top:4px }
+.tinymargin-bottom { margin-bottom:4px }
+.tinymargin-side { margin-left:4px; margin-right:4px }
+
+// Round corners
+
+.round { border-radius: radius }
+.round-top { border-top-left-radius: radius; border-top-right-radius: radius }
+.round-bottom { border-bottom-left-radius: radius; border-bottom-right-radius: radius }
+
+// Mobiles specific
+
+@media screen and (max-width:480px)
+  .no-mobile-screen { display:none !important}
+
+@media screen and (min-width:481px)
+  .mobile-screen { display:none !important }
+
+@media screen and (max-width:768px)
+  .no-medium-screen { display:none !important }
+
+@media screen and (min-width:769px)
+  .medium-screen { display:none !important }
+
+@media screen and (max-width:960px)
+  .large-screen { display:none !important }
+
+@media screen and (min-width:961px)
+  .no-large-screen { display:none !important }
+
+// Scaffolding
+
+.row
+  padding:0 !important
+  list-style: none outside !important
+  &::after
+    content:''
+    display:block
+    clear:both
+  > *
+    float:left
+    margin:0
+    margin-left:scaff-margin * 1%
+    width:scaff-width * 1%
+    &:first-child
+      margin-left:0
+  for n in (1..12)
+    .span-{n} { width: ((scaff-width * n) + (scaff-margin * (n - 1))) * 1% }
+
+@media screen and (max-width:768px)
+  .row:not(.mobile) > *
+    float:none
+    width:100% !important
+    margin:8px 0 !important
+
+@media screen and (max-width:480px)
+  .row.mobile > *
+    float:none
+    width:100% !important
+    margin:8px 0 !important

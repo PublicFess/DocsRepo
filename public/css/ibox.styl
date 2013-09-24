@@ -1,0 +1,43 @@
+#ibox
+  position:fixed
+  top:0
+  left:0
+  right:0
+  bottom:0
+  background:rgba(0,0,0,.6)
+  padding:4% 10%
+  z-index:1000
+  overflow-y:scroll
+
+#ibox-wrapper
+  position:relative
+  margin:4% 12%
+  img
+    max-width:100%
+
+#ibox-close
+  display:block
+  position:absolute
+  top:-12px
+  right:-12px
+  width:24px
+  height:24px
+  background:url("/img/ui/close.png") center center no-repeat #000
+  border-radius:24px
+  border:2px solid #fff
+  box-shadow:0 1px 3px rgba(0,0,0,.8)
+  cursor:pointer
+
+@media screen and (max-width:480px)
+  #ibox
+    position: relative
+    top:auto
+    left:auto
+    right:auto
+    bottom:auto
+    padding:64px 2%
+    border-bottom:8px dashed #fff
+    box-shadow:0 1px 3px rgba(0,0,0,.6)
+
+  #ibox-wrapper
+    margin:2%

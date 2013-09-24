@@ -1,0 +1,227 @@
+a, a:visited
+  color:primary-upper
+a:hover
+  color:primary-lower
+a.visited:visited
+  color:primary-lower
+
+img
+  max-width:100%
+
+.strong { font-weight: bold }
+.emphasized { font-style: italic }
+.enormous { font-size: 64px }
+.large { font-size: 20px }
+.small { font-size: 13px }
+
+// Common blocks
+
+p, h1, h2, h3, h4, h5, h6, ul, ol, li
+  margin: 12px 0
+
+h1
+  font-family:font-serif
+  font-weight:font-serif-weight
+  font-size:36px
+  line-height:36px
+  margin:24px 0
+
+h2
+  font-size:28px
+  line-height:28px
+  font-weight:normal
+  margin:16px 0
+
+h3
+  font-size:20px
+  line-height:20px
+  font-weight:normal
+  margin:8px 0
+
+hr
+  border:0
+  border-bottom:1px solid #ccc
+  box-shadow:0 1px 0 rgba(255,255,255,.5)
+
+p
+  line-height: 1.5em
+
+// Tables
+
+table
+  margin:0
+  max-width:100%
+  border-spacing:0
+  border-collapse:collapse
+  tr.top th, tr.top td
+    vertical-align: top
+  tr.bottom th, tr.bottom td
+    vertical-align: bottom
+  tr.middle th, tr.middle td
+    vertical-align: middle
+  tr.left-align th, tr.left-align td
+    text-align: left
+  tr.right-align th, tr.right-align td
+    text-align: right
+  tr.centered th, tr.centered td
+    text-align: center
+  th, td
+    padding:8px 12px
+    text-align: left
+    &.left-align
+      text-align:left
+    &.right-align
+      text-align:right
+    &.centered
+      text-align:center
+    &.justify
+      text-align:justify
+    &.top
+      vertical-align: top
+    &.bottom
+      vertical-align: bottom
+    &.middle
+      vertical-align: middle
+    &.terse
+      width:32px
+      padding:0
+  th
+    font-size: 20px
+    font-weight: normal
+  tbody th
+    font-size: 16px
+    font-variant: normal
+    color:#707070
+  &.centered
+    margin-left:auto
+    margin-right:auto
+  &.rows
+    td, th
+      border-top: 1px solid #e5e5cc
+      box-shadow: 0 1px 0 #fff inset
+    tr:first-child
+      td, th
+        border-top-width: 0
+        box-shadow: none
+    thead + tbody tr:first-child, tbody + tfoot tr:first-child
+      td, th
+        border-top-width: 1px
+        box-shadow: 0 1px 0 #fff inset
+  &.cols
+    td, th
+      border-right: 1px solid #ccc
+      &:last-child
+        border-right: 0
+  &.stripped
+    tbody tr:nth-child(2n + 1)
+      td, th
+        background: rgba(0,0,0,.025)
+  &.bordered
+    border-collapse: separate
+    border-radius:4px
+    border:1px solid #aaa
+    border-radius:4px
+  &.hover
+    tr:hover td
+      background:rgba(0,0,0,.035) !important
+  td.condensed
+    padding: 0
+  &.top
+    td, th
+      vertical-align: top
+  &.bottom
+    td, th
+      vertical-align: bottom
+  &.middle
+    td, th
+      vertical-align: middle
+  &.sorted
+    thead th.sorted
+      cursor: pointer
+      &::after
+        content:''
+        position:relative
+        display:inline-block
+        vertical-align:baseline
+        width:0
+        height:0
+        border:6px solid transparent
+        margin: 0 8px
+      &.asc::after
+        border-top-color:#999
+        top:4px
+      &.desc::after
+        border-bottom-color:#999
+        top:-4px
+
+
+// Blockquotes
+
+blockquote, .blockquote
+  position:relative
+  padding:2em 0 .5em 2em
+  &::before
+    content:"“"
+    font:128px Times, serif
+    font-weight:bold
+    opacity:.05
+    position:absolute
+    left:0
+    top:0
+  .author
+    text-align:right
+    font-style:italic
+
+// Code
+
+code
+  display: inline-block
+  border-radius:4px
+  color: primary-upper
+  font-size: 14px
+  font-family: Monaco, Courier New, Courier, monospace
+
+pre
+  box-shadow: 0 1px 3px #000 inset
+  border-radius:4px
+  padding:8px
+  background: #555
+  line-height: 1.5em
+
+pre code
+  display: inline
+  background: transparent
+  padding: 0
+  margin: 0
+  border-radius: 0
+  box-shadow: none
+  font-size:12px
+
+
+// Rich styles
+
+.subtitle
+  color:#6a6a6a
+  font-size:14px
+  font-style:italic
+  margin-top:-8px
+
+.subtle
+  color:#777
+  font-size:14px
+
+.empty
+  color:#777
+
+.large
+  font-size: 24px
+.enormous
+  font-size: 64px
+.kicker
+  font-size:1.25em
+
+.footnote
+  font-size:13px
+  color:#777
+  border-top:1px solid #aaa
+  padding-top:8px
