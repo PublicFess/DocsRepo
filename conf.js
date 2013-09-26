@@ -16,7 +16,7 @@ exports.cookieDomain = exports.domain;
 
 exports.storagePath = path.join(
   process.env.HOME || process.env.HOMEPATH || process.env.USERPROFILE,
-  ".scissors");
+  ".docs-repo");
 
 Object.defineProperty(module.exports, "origin", {
   enumerable: true,

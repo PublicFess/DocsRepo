@@ -12,11 +12,7 @@ app.all('/docs*', function(req, res, next){
 });
 
 app.get('/docs', function(req, res, next){
-  Document.find({owner:req.user._id})
-    .exec(function(err, docs){
-      if (err) return next(err);
-      res.render("docs/index", {docs:docs})
-    })
+
 });
 
 app.get('/docs/new', function(req, res, next){

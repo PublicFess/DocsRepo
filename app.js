@@ -12,19 +12,14 @@ var express = require('express')
   , User = require('./model/user')
   , mongoose = require('mongoose');
 
-
 var app = module.exports = exports = express();
 
-// Logger
-app.configure('development', function() {
-  app.use(express.logger('dev'));
-});
-
-// Views configuration
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.locals.basedir = __dirname + '/views';
-
+app.use(express.logger('dev'));
+app.use(express.bodyParser());
+app.use(express.methodOverride());
 // Parsing JSON, url-encoded and multipart forms
 app.use(express.bodyParser());
 
@@ -139,7 +134,7 @@ app.configure('production', function() {
 
 app.use(app.router);
 
-require('./routes/last_router');
+require('./routes/index');
 
 mongoose.connect(conf.mongoURL, function(err) {
   if (err) {
@@ -150,6 +145,3 @@ mongoose.connect(conf.mongoURL, function(err) {
     console.log('Server is listening on ' + conf.port);
   });
 });
-
-// Exports
-
