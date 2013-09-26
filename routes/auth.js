@@ -16,7 +16,6 @@ app.post('/signup', function(req, res, next){
   var user = new User(req.body.user);
   user.save(function(err, user){
     if (err) return next(err);
-    console.log(user);
     var dir = conf.storagePath + "/" + user.name;
     mkdirp(dir, function(err){
       if (err) return next(err);

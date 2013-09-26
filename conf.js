@@ -14,6 +14,8 @@ exports.origin = "http://" + exports.domain;
 exports.cdnDomain = exports.domain;
 exports.cookieDomain = exports.domain;
 
+exports.helloText = "# Hello World!"
+
 exports.storagePath = path.join(
   process.env.HOME || process.env.HOMEPATH || process.env.USERPROFILE,
   ".docs-repo");

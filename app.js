@@ -10,7 +10,9 @@ var express = require('express')
   , moment = require('moment')
   , _ = require('underscore')
   , User = require('./model/user')
-  , mongoose = require('mongoose');
+  , mongoose = require('mongoose')
+  , fs = require('fs')
+  , path = require('path');
 
 var app = module.exports = exports = express();
 
@@ -44,12 +46,13 @@ app.use(require('./notices'));
 
 // Authentication
 app.use(function(req, res, next) {
-  req.allowsEdit = !conf.auth;
   req.login = function(user) {
-    req.session.userId = user.id
+    req.session.userId = user._id;
+    res.cookie("user", user._id, {maxAge:2592000000})
   };
   req.logout = function() {
     delete req.session.userId;
+    res.clearCookie("user");
   };
   req.rememberLocation = function() {
     if (req.route.method == 'get' && !req.xhr)
@@ -61,6 +64,11 @@ app.use(function(req, res, next) {
     return req.cookies.loc || '/';
   };
   // Finally, populate `req.user`
+
+  if (req.cookies.user){
+    req.session.userId = req.cookies.user
+  }
+
   if (req.session.userId) {
     User.findOne({ _id: req.session.userId })
       .exec(function(err, user) {
@@ -89,6 +97,32 @@ app.use(function(req, res, next) {
       return moment.duration.call(moment, arguments).lang(req.i18n.getLocale());
     }
   });
+  next();
+});
+
+// Build tree structure
+
+app.use(function(req, res, next){
+  req.buildTree = function buildTree(dir, root){
+    root.title = path.basename(dir);
+    var stats = fs.statSync(dir);
+    if (stats.isFile()){
+      return root;
+    } else if (stats.isDirectory()){
+      var children = fs.readdirSync(dir);
+      if (children != []){
+        root.children = [];
+        for (var i = 0; i < children.length; i++ ){
+          root.children[i] = {};
+          children[i] = dir + "/" + children[i];
+          console.log(children[i]);
+          root.children.push(buildTree(children[i], root.children[i]))
+        }
+      } else {
+        return root;
+      }
+    }
+  };
   next();
 });
 

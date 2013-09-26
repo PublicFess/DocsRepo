@@ -12,9 +12,11 @@ var Document = mongoose.Schema({
 
   text: String,
 
+  url: String,
+
   state: {
     type: String,
-    enum: ["public", "private"],
+    enum: ["public","invite", "private"],
     default: "private"
   }
 });

@@ -1,3 +1,20 @@
-extends layout
-
-block main
+.row
+  .span-3 &nbsp;
+  .span-6
+    form.partial(method="post", action="/docs")
+      label
+        h3= __("Title.")
+        input.field(type="text", name="title")
+      label
+        h3= __("Access rights.")
+        label
+          span= __("Private:")
+          input(type="radio", name="state", value="private")
+        label
+          span= __("Access by invitation:")
+          input(type="radio", name="state", value="invite")
+        label
+          span= __("Public:")
+          input(type="radio", name="state", value="public")
+      p.centered
+        button.btn.primary(type="submit")= __("Create document")

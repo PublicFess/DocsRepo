@@ -32,5 +32,16 @@
 	"Sing up": "Sing up",
 	"Here will be a top navigation": "Here will be a top navigation",
 	"My documents": "My documents",
-	"You have no cards under your control. Start by creating one.": "You have no cards under your control. Start by creating one."
+	"You have no cards under your control. Start by creating one.": "You have no cards under your control. Start by creating one.",
+	"Create new document.": "Create new document.",
+	"You have no documents under your control. Start by creating one.": "You have no documents under your control. Start by creating one.",
+	"Enter title": "Enter title",
+	"Title.": "Title.",
+	"Access rights.": "Access rights.",
+	"Private:": "Private:",
+	"Access by invitation:": "Access by invitation:",
+	"Public:": "Public:",
+	"Create document": "Create document",
+	"Create new document": "Create new document",
+	"User's folder": "User's folder"
 }

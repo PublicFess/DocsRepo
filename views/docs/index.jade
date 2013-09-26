@@ -1,8 +1,10 @@
 extends layout
 
 block main
-  if (docs.lenght > 0)
-    each doc in docs
-      span= doc.title
-  else
-    p.kicker= __('You have no cards under your control. Start by creating one.')
+  if (docs)
+    h3= __("User's folder")+ " " + docs.title
+    if (docs.children.length > 0)
+          p= docs.children[1].children[0].title
+    else
+      p.kicker= __('You have no documents under your control. Start by creating one.')
+      a.btn.primary(href="/docs/new", rel="popup")= __("Create new document")
