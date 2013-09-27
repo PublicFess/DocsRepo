@@ -23,17 +23,18 @@ app.get('/docs', function(req, res, next){
   res.render('docs/index', {docs: tree})
 });
 
-app.get('/docs/new', function(req, res, next){
+app.get('/docs/new-file/*', function(req, res, next){
   if (!req.xhr) return res.send(404, "This page is not exist");
-  res.render('docs/new')
+  res.render('docs/files/new', {url: req.params[0]})
 });
 
-app.post('/docs', function(req, res, next){
-  var url = conf.storagePath + "/" + req.user.name + "/" + req.body.title + ".rho";
-  mkdirp(path.dirname(url), function(err){
+app.post('/docs/new-file/*', function(req, res, next){
+  var url = req.params[0] + "/" + req.body.title + ".rho";
+  var fullPath = conf.storagePath + "/" + url;
+  mkdirp(path.dirname(fullPath), function(err){
     if (err) return next(err);
     fs.writeFile(
-      url,
+      fullPath,
       conf.helloText,
       {encoding: "UTF-8"},
       function(err){
@@ -46,11 +47,58 @@ app.post('/docs', function(req, res, next){
         }).save(function(err){
             if (err) return next(err);
             res.json({
-              redirect: "/"
+              redirect: "/docs"
             })
           })
       }
     )
   });
+});
 
+app.get('/docs/rename-file/*', function(req, res, next){
+  if (!req.xhr) return res.send(404, "This page is not exist");
+  res.render('docs/files/rename', {url: req.params[0]});
+});
+
+app.post('/docs/rename-file/*', function(req, res, next){
+  var newTitle = req.param("title") + ".rho";
+  var oldFile = conf.storagePath + "/" + req.params[0];
+  var newFile = oldFile.substring(0, oldFile.length-path.basename(oldFile).length) + newTitle;
+  Document.findOne({url:req.params[0]})
+    .exec(function(err, doc){
+      if (err) return next(err);
+      fs.rename(oldFile, newFile, function(err){
+        if (err) return next(err);
+        doc.url = newFile.substring(conf.storagePath.length+1, newFile.length+1);
+        doc.save(function(err){
+          if (err) return next(err);
+          res.json({
+            redirect:"/docs"
+          })
+        });
+      })
+    });
+});
+
+app.get('/docs/delete-file/*', function(req, res, next){
+  if (!req.xhr) return res.send(404, "This page is not exist");
+  res.render('docs/files/delete', {url: req.params[0]});
+});
+
+app.post('/docs/delete-file/*', function(req, res, next){
+  var url = req.params[0];
+  console.log(url);
+  Document.findOne({url: url})
+    .exec(function(err, doc){
+      if (err) return next(err);
+      fs.unlink(conf.storagePath + "/" + doc.url, function(err){
+        if (err) return next(err);
+        doc.remove(function(err){
+          if (err) return next(err);
+          res.json({
+            redirect: "/docs"
+          })
+        })
+      })
+    })
 });

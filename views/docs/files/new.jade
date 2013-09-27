@@ -1,7 +1,7 @@
 .row
   .span-3 &nbsp;
   .span-6
-    form.partial(method="post", action="/docs")
+    form.partial(method="post", action="/docs/new-file/" + url)
       label
         h3= __("Title.")
         input.field(type="text", name="title")
@@ -9,7 +9,7 @@
         h3= __("Access rights.")
         label
           span= __("Private:")
-          input(type="radio", name="state", value="private")
+          input(type="radio", name="state", value="private", checked)
         label
           span= __("Access by invitation:")
           input(type="radio", name="state", value="invite")

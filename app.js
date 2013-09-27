@@ -105,12 +105,15 @@ app.use(function(req, res, next) {
 app.use(function(req, res, next){
   req.mkStructure = function mkStructure(file){
     var root = {};
+    console.log(file);
     var stats = fs.statSync(file);
     if (stats.isFile()) {
       root.title = path.basename(file);
+      root.url = file.substring(conf.storagePath.length+1, file.length+1);
       return root;
     } else if (stats.isDirectory()){
       root.title = path.basename(file);
+      root.url = file.substring(conf.storagePath.length+1, file.length+1);
       root.children = fs.readdirSync(file);
       if (root.children != ""){
         root.children = _.sortBy(root.children, function(num){

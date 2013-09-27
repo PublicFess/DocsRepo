@@ -1,0 +1,11 @@
+h3.pad= __("Are you sure? You want to rename " + url + "!")
+
+form.partial(method='post', action='/docs/rename-file/' + url)
+  label
+    span= __("New title")
+    input.field(type="text", name="title")
+  p.centered
+    button.btn.danger(type="submit")= __("Rename document")
+    span= __(" or ")
+    a.close= __("cancel")
+

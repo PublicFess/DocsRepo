@@ -11,26 +11,34 @@ block main
           prefix = root.title
         else
           prefix = prefix + "-" + root.title
-
+          prefix = prefix.replace("/", "-")
+          prefix = prefix.replace(".", "-")
 
         if (root.children)
-          li.no-list
+          li.no-list.relative
             i.icon-folder-open
             span: a.noline.black(href="javascript:;",
             data-switch="#"+prefix)= root.title + "/"
-            div.dropdown-menu.hidden(id=prefix)
-              span 1
+            div.dropdown-menu.dropdown(id=prefix)
+              a(href="/docs/new-file/" + root.url
+              , rel="popup")= __("Create file")
 
           ul
             each val in root.children
               mixin mkstructure(val, prefix)
         else
-          li
+          li.relative
             i.icon-file
-            span: a(href="/docs/edit")= root.title
-
+            span: a(href="javascript:;",
+            data-switch="#" + prefix)= root.title
+            div.dropdown-menu.dropdown(id=prefix)
+              a(href='/docs/rename-file/' + root.url,
+              rel="popup")= __("Rename file")
+              hr.dotted
+              a(href='/docs/delete-file/' + root.url,
+              rel="popup")= __("Delete file")
 
       mixin mkstructure(docs, "")
     else
       p.kicker= __('You have no documents under your control. Start by creating one.')
-      a.btn.primary(href="/docs/new", rel="popup")= __("Create new document")
+      a.btn.primary(href="/docs/new-file", rel="popup")= __("Create new document")
