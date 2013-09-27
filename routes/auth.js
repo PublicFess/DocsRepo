@@ -8,6 +8,7 @@ var User = require('../model/user')
 
 
 app.get('/signup', function(req, res, next){
+  if (req.user) return res.redirect("/docs");
   res.render('auth/signup')
 });
 
@@ -29,6 +30,7 @@ app.post('/signup', function(req, res, next){
 });
 
 app.get('/login', function(req, res, next) {
+  if (req.user) return res.redirect("/docs");
   res.render('auth/login');
 });
 

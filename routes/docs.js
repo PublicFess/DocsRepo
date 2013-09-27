@@ -5,7 +5,8 @@ var app = require('../app')
   , Document =require('../model/document')
   , path = require('path')
   , fs = require('fs')
-  , conf = require('../conf');
+  , conf = require('../conf')
+  , mkdirp = require('mkdirp');
 
 app.all('/docs*', function(req, res, next){
   if (!req.user){
@@ -17,9 +18,8 @@ app.all('/docs*', function(req, res, next){
 
 app.get('/docs', function(req, res, next){
   var root = conf.storagePath + "/" + req.user.name;
-  var tree = {};
-  req.buildTree(root, tree);
-  console.log(tree);
+  var tree = req.mkStructure(root);
+  console.log(JSON.stringify(tree, null, " "));
   res.render('docs/index', {docs: tree})
 });
 
@@ -30,23 +30,27 @@ app.get('/docs/new', function(req, res, next){
 
 app.post('/docs', function(req, res, next){
   var url = conf.storagePath + "/" + req.user.name + "/" + req.body.title + ".rho";
-  fs.writeFile(
-    url,
-    conf.helloText,
-    {encoding: "UTF-8"},
-    function(err){
-      if (err) return next(err);
-      var doc = new Document({
-        owner: req.user.id,
-        title: req.body.title,
-        state: req.body.state,
-        url: url
-      }).save(function(err){
-          if (err) return next(err);
-          res.json({
-            redirect: "/"
+  mkdirp(path.dirname(url), function(err){
+    if (err) return next(err);
+    fs.writeFile(
+      url,
+      conf.helloText,
+      {encoding: "UTF-8"},
+      function(err){
+        if (err) return next(err);
+        var doc = new Document({
+          owner: req.user.id,
+          title: req.body.title,
+          state: req.body.state,
+          url: url
+        }).save(function(err){
+            if (err) return next(err);
+            res.json({
+              redirect: "/"
+            })
           })
-        })
-    }
-  )
+      }
+    )
+  });
+
 });

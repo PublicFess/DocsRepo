@@ -3,8 +3,34 @@ extends layout
 block main
   if (docs)
     h3= __("User's folder")+ " " + docs.title
+
     if (docs.children.length > 0)
-          p= docs.children[1].children[0].title
+      mixin mkstructure(root, prefix)
+
+        if (prefix == "")
+          prefix = root.title
+        else
+          prefix = prefix + "-" + root.title
+
+
+        if (root.children)
+          li.no-list
+            i.icon-folder-open
+            span: a.noline.black(href="javascript:;",
+            data-switch="#"+prefix)= root.title + "/"
+            div.dropdown-menu.hidden(id=prefix)
+              span 1
+
+          ul
+            each val in root.children
+              mixin mkstructure(val, prefix)
+        else
+          li
+            i.icon-file
+            span: a(href="/docs/edit")= root.title
+
+
+      mixin mkstructure(docs, "")
     else
       p.kicker= __('You have no documents under your control. Start by creating one.')
       a.btn.primary(href="/docs/new", rel="popup")= __("Create new document")

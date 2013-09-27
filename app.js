@@ -103,21 +103,26 @@ app.use(function(req, res, next) {
 // Build tree structure
 
 app.use(function(req, res, next){
-  req.buildTree = function buildTree(dir, root){
-    root.title = path.basename(dir);
-    var stats = fs.statSync(dir);
-    if (stats.isFile()){
+  req.mkStructure = function mkStructure(file){
+    var root = {};
+    var stats = fs.statSync(file);
+    if (stats.isFile()) {
+      root.title = path.basename(file);
       return root;
     } else if (stats.isDirectory()){
-      var children = fs.readdirSync(dir);
-      if (children != []){
-        root.children = [];
-        for (var i = 0; i < children.length; i++ ){
-          root.children[i] = {};
-          children[i] = dir + "/" + children[i];
-          console.log(children[i]);
-          root.children.push(buildTree(children[i], root.children[i]))
-        }
+      root.title = path.basename(file);
+      root.children = fs.readdirSync(file);
+      if (root.children != ""){
+        root.children = _.sortBy(root.children, function(num){
+          var newFile = file + "/" + num;
+          var stat = fs.statSync(newFile);
+          return !(stat.isDirectory());
+        });
+        _.each(root.children, function(value, key){
+          var newFile = file + "/" + value;
+          root.children[key] = mkStructure(newFile);
+        });
+        return root;
       } else {
         return root;
       }
