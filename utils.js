@@ -6,6 +6,9 @@ var crypto = require('crypto')
   , rho = require('rho')
   , conf = require("./conf");
 
+var ALPHANUMERIC = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+var NUMERIC = '0123456789';
+
 exports.sha256 = function(str) {
   var p = crypto.createHash('sha256');
   p.update(str);
@@ -42,4 +45,21 @@ exports.setPassword = function(passwd) {
   return newPassword;
 };
 
+exports.randomString = function(length, alphabet) {
+  if (!length) length = 6;
+  if (!alphabet) alphabet = ALPHANUMERIC;
+  var result = '';
+  for (var i = 0; i < length; i++) {
+    var idx = Math.floor(Math.random() * alphabet.length);
+    result += alphabet[idx];
+  }
+  return result;
+};
 
+exports.randomNumber = function(length) {
+  return exports.randomString(length, NUMERIC);
+};
+
+exports.randomIndex = function(length) {
+  return Math.floor(Math.random() * length);
+};

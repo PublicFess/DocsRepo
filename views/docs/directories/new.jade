@@ -1,8 +1,8 @@
 .row
   .span-3 &nbsp;
   .span-6
-    h3= __("Create files")
-    form.partial.validate(method="post", action="/docs/new-file/" + url)
+    h3= __("Create directory")
+    form.partial.validate(method="post", action="/docs/new-dir/" + url)
       label
         h3= __("Title.")
         input.field.focus(type="text", name="title")
@@ -18,4 +18,4 @@
           span= __("Public:")
           input(type="radio", name="state", value="public")
       p.centered
-        button.btn.primary(type="submit")= __("Create document")
+        button.btn.primary(type="submit")= __("Create directory")

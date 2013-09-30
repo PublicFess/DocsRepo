@@ -10,6 +10,8 @@ var express = require('express')
   , moment = require('moment')
   , _ = require('underscore')
   , User = require('./model/user')
+  , Directory = require('./model/directory')
+  , Document = require('./model/document')
   , mongoose = require('mongoose')
   , fs = require('fs')
   , path = require('path');
@@ -103,9 +105,29 @@ app.use(function(req, res, next) {
 // Build tree structure
 
 app.use(function(req, res, next){
+
+  req.deleteDir = function deleteDir(file){
+    fs.readdirSync(file).forEach(function(child, index){
+      var newFile = file + "/" + child;
+      if (fs.statSync(newFile).isDirectory()){
+        deleteDir(newFile);
+      } else {
+        fs.unlinkSync(newFile);
+        var url = newFile.substring(conf.storagePath.length+1, newFile.length+1);
+        Document.remove({url:url}, function(err){
+          if (err) return next(err);
+        })
+      }
+    });
+    fs.rmdirSync(file);
+    var url = file.substring(conf.storagePath.length+1, file.length+1);
+    Directory.remove({url:url}, function(err){
+      if (err) return next(err);
+    })
+  };
+
   req.mkStructure = function mkStructure(file){
     var root = {};
-    console.log(file);
     var stats = fs.statSync(file);
     if (stats.isFile()) {
       root.title = path.basename(file);

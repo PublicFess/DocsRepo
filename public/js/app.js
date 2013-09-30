@@ -1,5 +1,26 @@
 'use strict';
 
+$.scalpel.queue['form.validate'] = function() {
+  var form = $(this);
+
+  $.validator.addMethod('regex', function(value, element, param) {
+      return this.optional(element) ||
+        value.match(typeof param == 'string' ? new RegExp(param) : param);
+    },
+    'Please enter a value in the correct format.');
+
+  this.handlers.push(function() {
+    form.validate({
+      rules: {
+        title:{
+          regex: /^(\w|\d)+$/
+        }
+      }
+    });
+    return form.valid();
+  });
+};
+
 $.scalpel.queue['.autosize'] = function() {
   $(this).autosize();
 };

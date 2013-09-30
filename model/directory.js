@@ -2,7 +2,7 @@
 
 var mongoose = require("mongoose");
 
-var Document = mongoose.Schema({
+var Directory = mongoose.Schema({
 
   owner: {
     type: mongoose.Schema.Types.ObjectId,
@@ -14,8 +14,6 @@ var Document = mongoose.Schema({
     type:String
   },
 
-  text: String,
-
   url: String,
 
   editors: [],
@@ -25,6 +23,7 @@ var Document = mongoose.Schema({
     enum: ["public","invite", "private"],
     default: "private"
   }
+
 });
 
-module.exports = mongoose.model('Document', Document);
+module.exports = mongoose.model('Directory', Directory);

@@ -10,6 +10,8 @@ var User = mongoose.Schema({
     required: true
   },
 
+  root_folder: String,
+
   email : {
     type:String,
     required: true
