@@ -1,6 +1,6 @@
 h3.pad= __("Are you sure? You want to rename " + url + "!")
 
-form.partial.validate(method='post', action='/docs/rename-dir/' + url)
+form.partial.validate(method='post', action='/docs/rename-dir/' + id)
   label
     span= __("New title")
     input.field.focus(type="text", name="title")

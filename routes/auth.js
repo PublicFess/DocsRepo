@@ -1,6 +1,7 @@
 'use strict';
 
 var User = require('../model/user')
+  , Element = require('../model/element')
   , app = require('../app')
   , utils = require('../utils')
   , conf = require('../conf')
@@ -17,15 +18,25 @@ app.post('/signup', function(req, res, next){
   var user = new User(req.body.user);
   user.save(function(err, user){
     if (err) return next(err);
-    var dir = conf.storagePath + "/" + user.name;
-    mkdirp(dir, function(err){
-      if (err) return next(err);
-      req.login(user);
-      res.json({
-        notices: res.notices.info("You have successfully registered.").get(),
-        redirect: "/"
-      })
+    var elem = new Element({
+      title: user.name,
+      owner: user._id,
+      root: true
     });
+    elem.path = elem._id;
+    elem.save(function(err, elem){
+        if (err) return next(err);
+        var dir = conf.storagePath + "/" + elem._id;
+        mkdirp(dir, function(err){
+          if (err) return next(err);
+          req.login(user);
+          req.
+          res.json({
+            notices: res.notices.info("You have successfully registered.").get(),
+            redirect: "/"
+          })
+        });
+      });
   });
 });
 
@@ -44,6 +55,7 @@ app.post('/login', function(req, res, next) {
       });
     else {
       req.login(user);
+      req.lastLocation();
       res.json({
         redirect: "/"
       });

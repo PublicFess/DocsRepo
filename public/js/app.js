@@ -14,6 +14,9 @@ $.scalpel.queue['form.validate'] = function() {
       rules: {
         title:{
           regex: /^(\w|\d)+$/
+        },
+        state: {
+
         }
       }
     });

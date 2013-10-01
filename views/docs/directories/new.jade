@@ -2,7 +2,7 @@
   .span-3 &nbsp;
   .span-6
     h3= __("Create directory")
-    form.partial.validate(method="post", action="/docs/new-dir/" + url)
+    form.partial.validate(method="post", action="/docs/new-dir/" + id)
       label
         h3= __("Title.")
         input.field.focus(type="text", name="title")

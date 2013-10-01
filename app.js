@@ -10,8 +10,7 @@ var express = require('express')
   , moment = require('moment')
   , _ = require('underscore')
   , User = require('./model/user')
-  , Directory = require('./model/directory')
-  , Document = require('./model/document')
+  , Element = require('./model/element')
   , mongoose = require('mongoose')
   , fs = require('fs')
   , path = require('path');
@@ -113,30 +112,30 @@ app.use(function(req, res, next){
         deleteDir(newFile);
       } else {
         fs.unlinkSync(newFile);
-        var url = newFile.substring(conf.storagePath.length+1, newFile.length+1);
-        Document.remove({url:url}, function(err){
+        Element.remove({_id:path.basename(newFile)}, function(err){
           if (err) return next(err);
-        })
+        });
       }
     });
     fs.rmdirSync(file);
-    var url = file.substring(conf.storagePath.length+1, file.length+1);
-    Directory.remove({url:url}, function(err){
+    Element.remove({_id:path.basename(file)}, function(err){
       if (err) return next(err);
-    })
+    });
+
   };
 
-  req.mkStructure = function mkStructure(file){
+  req.mkStructure = function mkStructure(file, arr){
     var root = {};
     var stats = fs.statSync(file);
+    var name = path.basename(file);
+    root.file = name;
+    root.url = file;
+    arr.push(name);
     if (stats.isFile()) {
-      root.title = path.basename(file);
-      root.url = file.substring(conf.storagePath.length+1, file.length+1);
       return root;
     } else if (stats.isDirectory()){
-      root.title = path.basename(file);
-      root.url = file.substring(conf.storagePath.length+1, file.length+1);
       root.children = fs.readdirSync(file);
+      console.log(root.children);
       if (root.children != ""){
         root.children = _.sortBy(root.children, function(num){
           var newFile = file + "/" + num;
@@ -145,7 +144,7 @@ app.use(function(req, res, next){
         });
         _.each(root.children, function(value, key){
           var newFile = file + "/" + value;
-          root.children[key] = mkStructure(newFile);
+          root.children[key] = mkStructure(newFile, arr);
         });
         return root;
       } else {

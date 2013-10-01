@@ -72,5 +72,13 @@
 	"Are you sure? You want to rename p1/1234!": "Are you sure? You want to rename p1/1234!",
 	"Are you sure? You want to rename p1/321!": "Are you sure? You want to rename p1/321!",
 	"Are you sure? You want to rename p1/123456!": "Are you sure? You want to rename p1/123456!",
-	"Are you sure? You want to rename p1/fjkdghdkfjghdfjkghkjdfghkdfjghodtuhiergiucfdh!": "Are you sure? You want to rename p1/fjkdghdkfjghdfjkghkjdfghkdfjghodtuhiergiucfdh!"
+	"Are you sure? You want to rename p1/fjkdghdkfjghdfjkghkjdfghkdfjghodtuhiergiucfdh!": "Are you sure? You want to rename p1/fjkdghdkfjghdfjkghkjdfghkdfjghodtuhiergiucfdh!",
+	"Are you sure? You want to rename p1-52499b9424e2bfd011000002/123.rho-5249a0e83c8d8fe00d000001!": "Are you sure? You want to rename p1-52499b9424e2bfd011000002/123.rho-5249a0e83c8d8fe00d000001!",
+	"Are you sure? You want to rename undefined!": "Are you sure? You want to rename undefined!",
+	"Are you sure? You want to delete undefined!": "Are you sure? You want to delete undefined!",
+	"Are you sure? You want to delete 524aafc264ed648c13000001!": "Are you sure? You want to delete 524aafc264ed648c13000001!",
+	"Are you sure? You want to delete 524aa6f62bad249009000002/524aafc264ed648c13000001!": "Are you sure? You want to delete 524aa6f62bad249009000002/524aafc264ed648c13000001!",
+	"Are you sure? You want to rename 524ab797ac54c74008000001!": "Are you sure? You want to rename 524ab797ac54c74008000001!",
+	"Preview file": "Preview file",
+	"Edit file": "Edit file"
 }

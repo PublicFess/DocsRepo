@@ -2,7 +2,7 @@
 
 var mongoose = require("mongoose");
 
-var Directory = mongoose.Schema({
+var Element = mongoose.Schema({
 
   owner: {
     type: mongoose.Schema.Types.ObjectId,
@@ -10,11 +10,17 @@ var Directory = mongoose.Schema({
     require: true
   },
 
+  root:{
+    type: Boolean,
+    require: true,
+    default: false
+  },
+
+  path: String,
+
   title: {
     type:String
   },
-
-  url: String,
 
   editors: [],
 
@@ -26,4 +32,4 @@ var Directory = mongoose.Schema({
 
 });
 
-module.exports = mongoose.model('Directory', Directory);
+module.exports = mongoose.model('Element', Element);
