@@ -1,5 +1,9 @@
 'use strict';
 
+$.scalpel.queue['.select2'] = function() {
+  $(this).select2();
+};
+
 $.scalpel.queue['form.validate'] = function() {
   var form = $(this);
 
@@ -14,9 +18,6 @@ $.scalpel.queue['form.validate'] = function() {
       rules: {
         title:{
           regex: /^(\w|\d)+$/
-        },
-        state: {
-
         }
       }
     });

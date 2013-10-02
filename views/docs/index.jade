@@ -37,13 +37,11 @@ block main
             span: a(href="javascript:;",
             data-switch="#" + prefix)= elems[root.file].title
             div.dropdown-menu.dropdown(id=prefix)
-              a(href='/file/' + elems[root.file]._id,
-              rel="popup")= __("Preview file")
-              a(href='/file/edit/' + elems[root.file]._id,
-              rel="popup")= __("Edit file")
-              a(href='/docs/rename-file/' + elems[root.file]._id,
+              a(href='/file/' + elems[root.file]._id)= __("Preview file")
+              a(href='/file/' + elems[root.file]._id + '/edit')= __("Edit file")
+              a(href='/file/' + elems[root.file]._id + '/rename',
               rel="popup")= __("Rename file")
-              a(href='/docs/delete-file/' + elems[root.file]._id,
+              a(href='/file/' + elems[root.file]._id + '/delete',
               rel="popup")= __("Delete file")
 
       mixin mkstructure(docs, elements, "")

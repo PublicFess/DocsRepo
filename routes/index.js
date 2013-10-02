@@ -8,3 +8,5 @@ app.get('/', function(req, res, next){
 
 require('./auth');
 require('./docs');
+require('./file');
+require('./share-docs');

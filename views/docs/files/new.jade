@@ -1,21 +1,16 @@
 .row
   .span-3 &nbsp;
   .span-6
-    h3= __("Create files")
+    h2= __("Create file")
     form.partial.validate(method="post", action="/docs/new-file/" + id)
       label
         h3= __("Title.")
         input.field.focus(type="text", name="title")
       label
         h3= __("Access rights.")
-        label
-          span= __("Private:")
-          input(type="radio", name="state", value="private", checked)
-        label
-          span= __("Access by invitation:")
-          input(type="radio", name="state", value="invite")
-        label
-          span= __("Public:")
-          input(type="radio", name="state", value="public")
+        select.select2(name="state")
+          option.field(value="private")= __('Private')
+          option.field(value="invite")= __('Access by invite')
+          option.field(value="public")= __('Public')
       p.centered
         button.btn.primary(type="submit")= __("Create document")

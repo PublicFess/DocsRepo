@@ -1,0 +1,43 @@
+extends layout
+
+block main
+  div(data-ref="#settings")
+  h2= __("Select the file's state")
+  form.partial(method="post", action="/file/" + elem._id + "/settings/state")
+
+    select.select2(name="state")
+      option.field(value="private",
+        selected=elem.state == "private" ? "selected" : null)
+        = __('Private')
+      option.field(value="invite",
+        selected=elem.state == "invite" ? "selected" : null)
+        = __('Access by invite')
+      option.field(value="public",
+        selected=elem.state == "public" ? "selected" : null)
+        = __('Public')
+    p
+      button.btn.primary.no-margin(type="submit")= __("Select")
+  hr.pad
+  h2= __("Editor's control")
+  .row
+    .span-6
+      h3= __("List of editors")
+      if (elem.editors != "")
+        each editor in elem.editors
+          p= editor
+      else
+        p= __("No editor was found")
+    .span-6
+      form.partial(method="post", action="/file/" + elem._id + "/settings/editors")
+        label
+          h3= __("Editor's email")
+          input.field.focus(type="text", name="email")
+          p
+            button.btn.primary.no-margin(type="submit")= __("Add editor")
+      hr.pad
+      form.partial(method="delete", action="/file/" + elem._id + "/settings/editors")
+        label
+          h3= __("Editor's email")
+          input.field(type="text", name="email")
+          p
+            button.btn.danger.no-margin(type="submit")= __("Remove editor")

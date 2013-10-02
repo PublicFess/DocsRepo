@@ -8,6 +8,8 @@ else
       title= siteTitle
       link(rel="stylesheet", href=cdn('/css/main.css'), media="screen")
       link(rel="stylesheet", href=cdn('/css/font-awesome.css'), media="screen")
+      link(rel="stylesheet", href=cdn('/select2/select2.css'),
+      media="screen")
       link(rel="shortcut icon", href=cdn('/favicon.ico'), type="image/x-icon")
       block stylesheets
 
@@ -16,21 +18,15 @@ else
       script(src=cdn('/js/lib/jquery.autosize.min.js'))
       script(src=cdn('/js/lib/jquery-validate.min.js'))
       script(src=cdn('/js/lib/highlight.web.js'))
+      script(src=cdn('/select2/select2.min.js'))
       script(src=cdn('/js/app.js'))
-      include shared/mathjax
+      include includes/mathjax
 
     body
       #notices
         each notice in notices.get()
           div(class="notice #{notice.kind}")= notice.msg
 
-      include shared/header
+      block content
 
-      include shared/sidebar
-
-
-      #content.pad
-
-        block content
-
-      include shared/footer
+      include includes/footer

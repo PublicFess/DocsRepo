@@ -5,10 +5,10 @@ block form
   method='post',
   action='/login')
     .ctl-row
-      label(for='name')= __('User name')
+      label(for='name')= __('Email')
       input#name.field.focus(
-      name='user[name]',
-      type='text')
+      name='user[email]',
+      type='email')
     .ctl-row
       label(for='password')= __('Password')
       input#password.field(
@@ -21,7 +21,7 @@ block form
       a.noline(href='/')
         span= __(' go back')
 
-block append content
+block main
   .pad
     .row
       .span-3 &nbsp;

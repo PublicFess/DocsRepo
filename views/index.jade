@@ -1,7 +1,14 @@
 extends layout
 
 block content
-  .page.pad
-    h1= __("This is a first instalation of Docs Service on MarkEven.")
-    h2= __("You can use this servise.")
-    h3= __("But fisrt, you must login or signup")
+
+  include includes/header
+
+  include includes/sidebar
+
+  #content.pad
+
+    .page.pad
+      h1= __("This is a first instalation of Docs Service on MarkEven.")
+      h2= __("You can use this servise.")
+      h3= __("But fisrt, you must login or signup")

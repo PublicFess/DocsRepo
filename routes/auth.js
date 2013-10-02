@@ -46,7 +46,7 @@ app.get('/login', function(req, res, next) {
 });
 
 app.post('/login', function(req, res, next) {
-  User.findOne({ name: req.body.user.name }).exec(function(err, user) {
+  User.findOne({ email: req.body.user.email }).exec(function(err, user) {
     if (err)
       return next(err);
     if (!user || !user.checkPassword(req.body.user.password))

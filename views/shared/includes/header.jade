@@ -1,0 +1,7 @@
+#header
+
+  #nav-top
+    a.logo.noline(href="/")= __("Docs Repo")
+    if !user
+      a(href="/login")= __("Login")
+      a(href="/signup")= __("Sing up")

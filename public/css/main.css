@@ -209,23 +209,24 @@ a.noline{text-decoration:none}
 html,body,form,fieldset,img{padding:0;margin:0;border:0}
 a,a:visited{color:#8d8d8d}
 a:hover{color:#222}
-body{font-family:"HelveticaNeueLight","HelveticaNeue-Light","Helvetica Neue Light","HelveticaNeue","Helvetica Neue","Segoe UI","Helvetica","Tahoma","Geneva","Arial",sans-serif;font-size:18px;font-weight:300;background:#ccc}
-#header{position:relative}
-#nav-top a{line-height:50px;vertical-align:middle;padding:0 16px}
-#nav-top .logo{font-size:1.2em;color:#999}
-#sidebar{position:relative;}
+body{font-family:"HelveticaNeueLight","HelveticaNeue-Light","Helvetica Neue Light","HelveticaNeue","Helvetica Neue","Segoe UI","Helvetica","Tahoma","Geneva","Arial",sans-serif;font-size:18px;font-weight:300;background:url("/img/bg/png.png")}
+#header{position:relative;border-bottom:1px solid #fff}
+#nav-top a{line-height:80px;vertical-align:middle;font-size:1.1em;padding:0 16px}
+#nav-top .logo{display:block;float:left;width:182px;font-size:1.2em;color:#999}
+#nav-top .active{color:#fff}
+#sidebar{position:relative;border-top:1px solid #000;}
 #sidebar .avatar{display:block;text-align:center;line-height:216px;}
 #sidebar .avatar img{vertical-align:middle}
 #sidebar .nav a{display:block;text-decoration:none;padding:8px 16px;font-size:1.1em;color:#555;}
 #sidebar .nav a.active,#sidebar .nav a:hover{color:#fff}
-#content{background:#fff;min-height:480px}
+#content{background:#fff;min-height:480px;background:url("/img/bg/handmadepaper.png");-webkit-box-shadow:0 0 80px -8px rgba(0,0,0,0.5) inset;box-shadow:0 0 80px -8px rgba(0,0,0,0.5) inset;margin-left:216px;margin-right:16px;}
+#content:before{display:block;content:""}
 #footer{clear:both;padding:8px 16px;font-size:13px;color:#bbb}
 #topnav{position:relative;border-bottom:1px solid #ccc;min-height:16px;line-height:16px;font-size:13px;padding:4px 8px;}
 #topnav code{font-size:12px}
 #topnav .controls{position:absolute;top:4px;right:8px;}
 #topnav .controls a{display:inline-block;text-decoration:none;color:#777}
 @media screen and (min-width:480px){#sidebar{width:216px;float:left}
-#content{margin-left:216px}
 }#notices{z-index:100;}
 #notices .notice{position:relative;padding:8px 12px;margin:8px;background:rgba(0,0,0,0.8);color:#fff;-webkit-border-radius:6px;border-radius:6px;}
 #notices .notice::before{display:inline-block;margin-right:8px}

@@ -13,23 +13,31 @@ body
   font-family: font-sans
   font-size: font-size
   font-weight: font-sans-weight
-  background: #ccc
+  background: url('/img/bg/png.png')
 
 #header
   position:relative
+  border-bottom: 1px solid #fff
 
 
 #nav-top
   a
-    line-height:50px
+    line-height:80px
     vertical-align:middle
+    font-size: 1.1em
     padding: 0px 16px
   .logo
+    display: block
+    float: left
+    width: 182px
     font-size: 1.2em
     color: #999
+  .active
+    color: #fff
 
 #sidebar
   position:relative
+  border-top: 1px solid #000
 
   .avatar
     display:block
@@ -50,6 +58,14 @@ body
 #content
   background: #fff
   min-height: 480px
+  background: url("/img/bg/handmadepaper.png")
+  box-shadow: 0px 0px 80px -8px rgba(0,0,0,.5) inset;
+  margin-left:216px
+  margin-right: 16px
+  &:before
+    display:block
+    content: ""
+
 
 #footer
   clear:both
@@ -79,5 +95,3 @@ body
   #sidebar
     width:216px
     float:left
-  #content
-    margin-left:216px

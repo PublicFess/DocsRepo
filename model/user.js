@@ -6,15 +6,13 @@ var mongoose = require('mongoose')
 var User = mongoose.Schema({
 
   name: {
-    type: String,
-    required: true
+    type: String
   },
-
-  root_folder: String,
 
   email : {
     type:String,
-    required: true
+    required: true,
+    unique: true
   },
 
   password: {
@@ -25,7 +23,7 @@ var User = mongoose.Schema({
   role: {
     type: String,
     required: true,
-    enum : ["User", "Editor", "Administrator"],
+    enum : ["User", "Administrator"],
     default: "User"
   }
 
