@@ -13,15 +13,18 @@ body
   font-family: font-sans
   font-size: font-size
   font-weight: font-sans-weight
-  background: url('/img/bg/png.png')
+  background: url('/img/bg/body.png') repeat
 
 #header
   position:relative
-  border-bottom: 1px solid #fff
 
+#container
+  background: #ccc
+  background-image: url('/img/bg/1.png')
 
 #nav-top
-  a
+  height: 80px
+  a, span
     line-height:80px
     vertical-align:middle
     font-size: 1.1em
@@ -37,14 +40,15 @@ body
 
 #sidebar
   position:relative
-  border-top: 1px solid #000
 
   .avatar
     display:block
     text-align:center
-    line-height: 216px
+    width:184px
+    height:184px
     img
       vertical-align:middle
+
 
   .nav a
     display:block
@@ -55,13 +59,16 @@ body
     &.active, &:hover
       color: #fff
 
+#frame
+  margin-left:216px
+  border:1px solid transparent
+  background:rgba(0,0,0,.5)
+
 #content
   background: #fff
   min-height: 480px
   background: url("/img/bg/handmadepaper.png")
-  box-shadow: 0px 0px 80px -8px rgba(0,0,0,.5) inset;
-  margin-left:216px
-  margin-right: 16px
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,.5);
   &:before
     display:block
     content: ""

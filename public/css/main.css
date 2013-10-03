@@ -209,17 +209,20 @@ a.noline{text-decoration:none}
 html,body,form,fieldset,img{padding:0;margin:0;border:0}
 a,a:visited{color:#8d8d8d}
 a:hover{color:#222}
-body{font-family:"HelveticaNeueLight","HelveticaNeue-Light","Helvetica Neue Light","HelveticaNeue","Helvetica Neue","Segoe UI","Helvetica","Tahoma","Geneva","Arial",sans-serif;font-size:18px;font-weight:300;background:url("/img/bg/png.png")}
-#header{position:relative;border-bottom:1px solid #fff}
-#nav-top a{line-height:80px;vertical-align:middle;font-size:1.1em;padding:0 16px}
+body{font-family:"HelveticaNeueLight","HelveticaNeue-Light","Helvetica Neue Light","HelveticaNeue","Helvetica Neue","Segoe UI","Helvetica","Tahoma","Geneva","Arial",sans-serif;font-size:18px;font-weight:300;background:url("/img/bg/body.png") repeat}
+#header{position:relative}
+#container{background:#ccc;background-image:url("/img/bg/1.png")}
+#nav-top{height:80px;}
+#nav-top a,#nav-top span{line-height:80px;vertical-align:middle;font-size:1.1em;padding:0 16px}
 #nav-top .logo{display:block;float:left;width:182px;font-size:1.2em;color:#999}
 #nav-top .active{color:#fff}
-#sidebar{position:relative;border-top:1px solid #000;}
-#sidebar .avatar{display:block;text-align:center;line-height:216px;}
+#sidebar{position:relative;}
+#sidebar .avatar{display:block;text-align:center;width:184px;height:184px;}
 #sidebar .avatar img{vertical-align:middle}
 #sidebar .nav a{display:block;text-decoration:none;padding:8px 16px;font-size:1.1em;color:#555;}
 #sidebar .nav a.active,#sidebar .nav a:hover{color:#fff}
-#content{background:#fff;min-height:480px;background:url("/img/bg/handmadepaper.png");-webkit-box-shadow:0 0 80px -8px rgba(0,0,0,0.5) inset;box-shadow:0 0 80px -8px rgba(0,0,0,0.5) inset;margin-left:216px;margin-right:16px;}
+#frame{margin-left:216px;border:1px solid transparent;background:rgba(0,0,0,0.5)}
+#content{background:#fff;min-height:480px;background:url("/img/bg/handmadepaper.png");-webkit-box-shadow:0 0 10px 0 rgba(0,0,0,0.5);box-shadow:0 0 10px 0 rgba(0,0,0,0.5);}
 #content:before{display:block;content:""}
 #footer{clear:both;padding:8px 16px;font-size:13px;color:#bbb}
 #topnav{position:relative;border-bottom:1px solid #ccc;min-height:16px;line-height:16px;font-size:13px;padding:4px 8px;}

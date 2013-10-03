@@ -4,11 +4,15 @@ block content
 
   include includes/header
 
-  include includes/sidebar
+  #container
 
-  #content.pad
+    include includes/sidebar
 
-    .page.pad
-      h1= __("This is a first instalation of Docs Service on MarkEven.")
-      h2= __("You can use this servise.")
-      h3= __("But fisrt, you must login or signup")
+    #frame
+
+      #content.pad.margin
+
+        .page.pad
+          h1= __("This is a first instalation of Docs Service on MarkEven.")
+          h2= __("You can use this servise.")
+          h3= __("But fisrt, you must login or signup")
