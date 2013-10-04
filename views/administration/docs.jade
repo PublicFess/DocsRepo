@@ -28,11 +28,12 @@ block main
               i.icon-folder-open
               span: a.noline.black(href="javascript:;",
               data-switch="#"+prefix)= elems[root.file].title + "/"
-              div.dropdown-menu.dropdown(id=prefix)
-                a(href="/folder/" + elems[root.file]._id + "/rename"
-                , rel="popup")= __("Rename directory")
-                a(href="/folder/" + elems[root.file]._id + "/delete"
-                , rel="popup")= __("Delete directory")
+              if !(elems[root.file].root)
+                div.dropdown-menu.dropdown(id=prefix)
+                  a(href="/folder/" + elems[root.file]._id + "/rename"
+                  , rel="popup")= __("Rename directory")
+                  a(href="/folder/" + elems[root.file]._id + "/delete"
+                  , rel="popup")= __("Delete directory")
 
             ul
               each val in root.children

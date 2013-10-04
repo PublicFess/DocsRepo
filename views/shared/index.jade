@@ -2,11 +2,14 @@ extends layout
 
 block main
   ul
-    each file in files
-      li.relative
-        i.icon-file
-        span: a(href="javascript:;",
-        data-switch="#"+file._id)= file.title
-        div.dropdown-menu.dropdown(id=file._id)
-          a(href='/file/' + file._id)= __("Preview file")
-          a(href='/file/' + file._id + '/edit')= __("Edit file")
+    if (files.length < 0)
+      each file in files
+        li.relative
+          i.icon-file
+          span: a(href="javascript:;",
+          data-switch="#"+file._id)= file.title
+          div.dropdown-menu.dropdown(id=file._id)
+            a(href='/file/' + file._id)= __("Preview file")
+            a(href='/file/' + file._id + '/edit')= __("Edit file")
+    else
+      h2= __("You don't have any shared files.")

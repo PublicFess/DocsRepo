@@ -82,7 +82,7 @@ app.post("/folder/:id/new", function(req, res, next){
 });
 
 app.get("/folder/:id/rename", function(req, res, next){
-  if (req.owner || req.admin) {
+  if (!req.elem.root && (req.owner || req.admin)) {
     if (!req.xhr) return res.send(404, "This page is not exist");
     res.render('docs/folders/rename', {id: req.param('id'), title:req.elem.title})
   } else {
@@ -92,7 +92,7 @@ app.get("/folder/:id/rename", function(req, res, next){
 
 app.post("/folder/:id/rename", function(req, res, next){
   console.log(req.admin);
-  if (req.owner || req.admin) {
+  if (!req.elem.root && (req.owner || req.admin)) {
     var newTitle = req.param("title");
     Element.findOneAndUpdate({_id: req.param("id")}, {title: newTitle}, function(err){
       if (err) return next(err);
@@ -107,7 +107,7 @@ app.post("/folder/:id/rename", function(req, res, next){
 
 app.get("/folder/:id/delete", function(req, res, next){
   if (!req.xhr) return res.send(404, "This page is not exist");
-  if (req.owner || req.admin) {
+  if (!req.elem.root && (req.owner || req.admin)) {
     res.render('docs/folders/delete', {id: req.param("id"), title: req.elem.title})
   } else {
     res.send(404, "You don't have access to this file")
@@ -115,7 +115,7 @@ app.get("/folder/:id/delete", function(req, res, next){
 });
 
 app.post("/folder/:id/delete", function(req, res, next){
-  if (req.owner || req.admin) {
+  if (!req.elem.root && (req.owner || req.admin)) {
     var fullPath = conf.storagePath + "/" + req.elem.path;
     req.deleteDir(fullPath);
     res.json({

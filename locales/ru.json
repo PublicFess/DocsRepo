@@ -134,5 +134,7 @@
 	"Are you sure? You want to delete 321.rho!": "Are you sure? You want to delete 321.rho!",
 	"Are you sure? You want to change 312!": "Are you sure? You want to change 312!",
 	"Are you sure? You want to delete 123!": "Are you sure? You want to delete 123!",
-	"Are you sure? You want to delete PublicFess!": "Are you sure? You want to delete PublicFess!"
+	"Are you sure? You want to delete PublicFess!": "Are you sure? You want to delete PublicFess!",
+	"You don't have any share files": "You don't have any share files",
+	"You don't have any shared files.": "You don't have any shared files."
 }
