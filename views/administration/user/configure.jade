@@ -1,0 +1,18 @@
+h3.pad= __("Are you sure? You want to change " + user.name + "!")
+
+form.partial(method='post', action='/admin/user/' + user._id + '/configure')
+  label
+    span= __("Name")
+    input.field(type="text", name="name", value=user.name)
+  br
+  select.select2(name="role")
+    option.field(value="User",
+    selected=user.role == "User" ? "selected" : null)
+      = __('User')
+    option.field(value="Administrator",
+    selected=user.role == "Administrator" ? "selected" : null)
+      = __('Administrator')
+  p.centered
+    button.btn.danger(type="submit")= __("Configure")
+    span= __(" or ")
+    a.close= __("cancel")

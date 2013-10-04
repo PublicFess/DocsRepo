@@ -18,14 +18,14 @@ block main
             span: a.noline.black(href="javascript:;",
             data-switch="#"+prefix)= elems[root.file].title + "/"
             div.dropdown-menu.dropdown(id=prefix)
-              a(href="/docs/new-dir/"+elems[root.file].path
+              a(href="/folder/"+elems[root.file]._id + "/new"
               , rel="popup")= __("Create directory")
-              a(href="/docs/rename-dir/" + elems[root.file]._id
+              a(href="/folder/" + elems[root.file]._id + "/rename"
               , rel="popup")= __("Rename directory")
-              a(href="/docs/delete-dir/" + elems[root.file].path
+              a(href="/folder/" + elems[root.file]._id + "/delete"
               , rel="popup")= __("Delete directory")
               hr.dotted
-              a(href="/docs/new-file/"+elems[root.file].path
+              a(href="/file/"+elems[root.file]._id + "/new"
               , rel="popup")= __("Create file")
 
           ul
@@ -48,7 +48,8 @@ block main
     else
       h3= __("User's folder")+ " " + user.name
       p.kicker= __('You have no documents under your control. Start by creating one.')
-      a(href="/docs/new-file/"+docs.file,
-      rel="popup")= __("Create new document")
+      a(href="/file/"+ docs.file + "/new"
+      , rel="popup")= __("Create new document")
       span= __(" or ")
-      a(href="/docs/new-dir/"+docs.file, rel="popup")= __("create new directory")
+      a(href="/folder/"+ docs.file + "/new"
+      , rel="popup")= __("create new directory")

@@ -1,0 +1,24 @@
+extends layout
+
+block main
+  if users
+    each user in users
+      .row.no-overflow
+
+        .span-5(id=user._id)
+          h2.pad-side= user.name
+          p.pad-side= user.email
+          p.pad-side= user.role
+        .span-5
+          p
+            a(href="/admin/user/"+ user._id +"/configure",
+              rel="popup")
+              = __("Configure")
+        .span-2
+          if (user.role != "Administrator")
+            a.normal.delete.float-right.noline(href="/admin/user/"+ user._id +"/delete",
+              title="Delete user",
+              rel="popup")
+              i.normal.icon-remove
+
+      hr

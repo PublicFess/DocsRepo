@@ -19,7 +19,6 @@ var checkOwner = function(user, file){
 };
 
 var checkEditor = function(user, file){
-  console.log(file.state, user._id);
   switch (file.state){
     case ("invite"):
       for (var i = 0; i < file.editors.length; i++){
@@ -59,6 +58,46 @@ app.all('/file/:id*', function(req, res, next){
     });
 });
 
+app.get('/file/:id/new', function(req, res, next){
+  if (req.owner){
+    if (!req.xhr) return res.send(404, "This page is not exist");
+    res.render('file/new', {id: req.param("id")})
+  } else {
+    res.send(404, "You don't have access to this file")
+  }
+});
+
+app.post('/file/:id/new', function(req, res, next){
+  if (req.owner){
+    var elem = new Element({
+      owner: req.user.id,
+      title: req.body.title + ".rho",
+      state: req.body.state
+    });
+    elem.path = req.elem.path + "/" + elem._id;
+    elem.save(function(err, elem){
+      if (err) return next(err);
+      var fullPath = conf.storagePath + "/" + elem.path;
+      mkdirp(path.dirname(fullPath), function(err){
+        if (err) return next(err);
+        fs.writeFile(
+          fullPath,
+          conf.helloText,
+          {encoding: "UTF-8"},
+          function(err){
+            if (err) return next(err);
+            console.log(req.cookies.loc);
+            res.json({
+              redirect: req.lastLocation()
+            })
+          })
+      });
+    });
+  } else {
+    res.send(404, "You don't have access to this file")
+  }
+});
+
 app.get('/file/:id', function(req, res, next){
   if (req.owner || req.editor){
     var fullPath = conf.storagePath + "/" + req.elem.path;
@@ -90,21 +129,21 @@ app.get('/file/:id', function(req, res, next){
 
 app.get('/file/:id/rename', function(req, res, next){
   if (!req.xhr) return res.send(404, "This page is not exist");
-  if (req.owner){
-    res.render('file/rename', {id: req.param("id")});
+  if (req.owner || req.admin){
+    res.render('file/rename', {id: req.param("id"), title:req.elem.title});
   } else {
     res.send(404, "You don't have access to this file")
   }
 });
 
 app.post('/file/:id/rename', function(req, res, next){
-  if (req.owner){
+  if (req.owner || req.admin){
     var newTitle = req.param("title") + ".rho";
     req.elem.title = newTitle;
     req.elem.save(function(err){
       if (err) return next(err);
       res.json({
-        redirect: "/docs"
+        redirect: req.lastLocation()
       })
     })
   } else {
@@ -114,22 +153,22 @@ app.post('/file/:id/rename', function(req, res, next){
 
 app.get('/file/:id/delete', function(req, res, next){
   if (!req.xhr) return res.send(404, "This page is not exist");
-  if (req.owner){
-    res.render('file/delete', {id: req.param("id")});
+  if (req.owner || req.admin){
+    res.render('file/delete', {id: req.param("id"), title:req.elem.title});
   } else {
     res.send(404, "You don't have access to this file")
   }
 });
 
 app.post('/file/:id/delete', function(req, res, next){
-  if (req.owner){
+  if (req.owner || req.admin){
     var url = req.param("id");
     fs.unlink(conf.storagePath + "/" + req.elem.path, function(err){
       if (err) return next(err);
       req.elem.remove(function(err){
         if (err) return next(err);
         res.json({
-          redirect: "/docs"
+          redirect: req.lastLocation()
         })
       })
     })
@@ -187,13 +226,11 @@ app.post('/file/:id/edit', function(req, res, next){
           });
       });
     } else fs.unlink(fullPath, function(err) {
-      if (!err) {
-        req.elem.remove();
-        res.notices.info('Page deleted.');
-      }
+      if (err) return next(err);
+      req.elem.remove();
       res.json({
-        notices: res.notices.get(),
-        redirect: "/docs"
+        notices: res.notices.info('Page deleted.').get(),
+        redirect: req.lastLocation()
       });
     });
   }

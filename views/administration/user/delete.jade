@@ -1,0 +1,9 @@
+h3.pad= __("Are you sure? You want to delete " + name + "!")
+
+form.partial(method='post', action='/admin/user/' + id + '/delete')
+
+  p.centered
+    button.btn.danger(type="submit")= __("Delete user")
+    span= __(" or ")
+    a.close= __("cancel")
+

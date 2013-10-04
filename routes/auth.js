@@ -16,6 +16,7 @@ app.get('/signup', function(req, res, next){
 app.post('/signup', function(req, res, next){
   req.body.user.password = utils.setPassword(req.body.user.password);
   var user = new User(req.body.user);
+
   user.save(function(err, user){
     if (err) return next(err);
     var elem = new Element({
@@ -33,7 +34,7 @@ app.post('/signup', function(req, res, next){
           req.
           res.json({
             notices: res.notices.info("You have successfully registered.").get(),
-            redirect: "/"
+            redirect: req.lastLocation()
           })
         });
       });
@@ -57,7 +58,7 @@ app.post('/login', function(req, res, next) {
       req.login(user);
       req.lastLocation();
       res.json({
-        redirect: "/"
+        redirect: req.lastLocation()
       });
     }
   });

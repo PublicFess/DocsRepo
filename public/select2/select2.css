@@ -10,7 +10,7 @@ Version: 3.4.2 Timestamp: Mon Aug 12 15:04:12 PDT 2013
     /* inline-block for ie7 */
     zoom: 1;
     *display: block;
-    width:60%;
+    width:50%;
     vertical-align: middle;
 }
 

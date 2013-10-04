@@ -2,6 +2,15 @@
 
 var app = require('../app');
 
+app.all("/*", function(req, res, next){
+  if (req.user && req.user.role == "Administrator"){
+    req.admin = res.locals.admin = true;
+    next();
+  } else {
+    next();
+  }
+});
+
 app.get('/', function(req, res, next){
   res.render('index')
 });
@@ -9,4 +18,6 @@ app.get('/', function(req, res, next){
 require('./auth');
 require('./docs');
 require('./file');
+require('./folder');
 require('./share-docs');
+require('./administration');

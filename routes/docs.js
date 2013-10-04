@@ -27,6 +27,7 @@ app.get('/docs', function(req, res, next){
   var root = conf.storagePath + "/" + req.root._id;
   var ids = [];
   var tree = req.mkStructure(root, ids);
+  req.rememberLocation();
   Element.find({_id: {$in: ids}})
     .exec(function(err, elems){
       if (err) next(err);
@@ -37,6 +38,3 @@ app.get('/docs', function(req, res, next){
       res.render('docs/index', {docs: tree, elements:arrElems})
     });
 });
-
-require('./files');
-require('./directories');

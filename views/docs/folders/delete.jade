@@ -1,9 +1,9 @@
 h3.pad= __("Are you sure? You want to delete" + " " + title + "!")
 
-form.partial(method='post', action='/file/' + id + '/delete')
+form.partial(method='post', action='/folder/' + id + '/delete')
 
   p.centered
-    button.btn.danger(type="submit")= __("Delete document")
+    button.btn.danger(type="submit")= __("Delete directory")
     span= __(" or ")
     a.close= __("cancel")
 

@@ -1,0 +1,76 @@
+#!/usr/bin/env node
+'use strict';
+
+var opts = require('nomnom')
+
+  .option('init', {
+    abbr:"i",
+    help: "first run must create root directory",
+    flag:true
+  })
+
+  .option('admin', {
+    abbr: "a",
+    help: "create administration with --name --email --password",
+    flag:true
+  })
+
+  .option('name', {
+    help: 'Admin name',
+    required: true
+  })
+
+  .option('email', {
+    help: 'Admin email',
+    required: true
+  })
+
+  .option('password', {
+    help: 'Password'
+  })
+
+  .parse();
+
+function done(err) {
+  if (err) {
+    console.log(err);
+    process.exit(1);
+  } else process.exit(0);
+}
+
+var conf = require('../conf')
+  , mongoose = require('mongoose')
+  , User = require('../model/user')
+  , Element = require('../model/element')
+  , mkdirp = require('mkdirp')
+  , utils = require('../utils');
+
+
+mongoose.connect(conf.mongoURL, function(err){
+  if (err) done(err);
+  if (opts.admin) {
+    var psw = utils.setPassword(opts.password.toString());
+    var user = new User({
+      "email" : opts.email,
+      "name" : opts.name,
+      "role" : "Administrator",
+      "password" : psw
+    }).save(function(err, user){
+        if (err) done(err);
+        var elem = new Element({
+          title: user.name,
+          owner: user._id,
+          root: true
+        });
+        elem.path = elem._id;
+        elem.save(function(err, elem){
+          if (err) return done(err);
+          var dir = conf.storagePath + "/" + elem._id;
+          mkdirp(dir, function(err){
+            if (err) return done(err);
+            done();
+          });
+        });
+      })
+  }
+});

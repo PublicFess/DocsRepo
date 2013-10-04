@@ -5,3 +5,8 @@ if user
     .nav
       a.noline(href="/docs")= __("My documents")
       a.noline(href="/shared")= __("Shared with me")
+
+      if admin
+        a.noline(href="/admin/docs")= __("Documents")
+        a.noline(href="/admin/users")= __("Users")
+

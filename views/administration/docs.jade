@@ -1,0 +1,52 @@
+extends layout
+
+block main
+
+  if (docs)
+    if (docs.children.length > 0)
+      mixin mkstructure(root, elems, prefix)
+
+        if (root.file == ".docs-repo")
+          li.no-list.relative
+            i.icon-folder-open
+            span: a.noline.black(href="javascript:;")= root.file
+
+          ul
+            each val in root.children
+              mixin mkstructure(val, elements, prefix)
+        else
+
+          if (prefix == "")
+            prefix = elems[root.file].title || "root"
+          else
+            prefix = prefix + "-" + elems[root.file].title || "root"
+            prefix = prefix.replace("/", "-")
+            prefix = prefix.replace(".", "-")
+
+          if (root.children)
+            li.no-list.relative
+              i.icon-folder-open
+              span: a.noline.black(href="javascript:;",
+              data-switch="#"+prefix)= elems[root.file].title + "/"
+              div.dropdown-menu.dropdown(id=prefix)
+                a(href="/folder/" + elems[root.file]._id + "/rename"
+                , rel="popup")= __("Rename directory")
+                a(href="/folder/" + elems[root.file]._id + "/delete"
+                , rel="popup")= __("Delete directory")
+
+            ul
+              each val in root.children
+                mixin mkstructure(val, elements, prefix)
+
+          else
+            li.relative
+              i.icon-file
+              span: a(href="javascript:;",
+              data-switch="#" + prefix)= elems[root.file].title
+              div.dropdown-menu.dropdown(id=prefix)
+                a(href='/file/' + elems[root.file]._id + '/rename',
+                rel="popup")= __("Rename file")
+                a(href='/file/' + elems[root.file]._id + '/delete',
+                rel="popup")= __("Delete file")
+
+      mixin mkstructure(docs, elements, "")

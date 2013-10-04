@@ -13,7 +13,9 @@ var express = require('express')
   , Element = require('./model/element')
   , mongoose = require('mongoose')
   , fs = require('fs')
-  , path = require('path');
+  , path = require('path')
+  , sharejs = require('share').server
+  , connect = require('connect');
 
 var app = module.exports = exports = express();
 
@@ -55,11 +57,10 @@ app.use(function(req, res, next) {
     delete req.session.userId;
     res.clearCookie("user");
   };
+
   req.rememberLocation = function() {
     if (req.route.method == 'get' && !req.xhr)
-      res.cookie("loc", conf.origin + req.path, {
-        domain: conf.cookieDomain
-      });
+      res.cookie("loc", req.path, {maxAge:2592000000});
   };
   req.lastLocation = function() {
     return req.cookies.loc || '/';
@@ -135,7 +136,6 @@ app.use(function(req, res, next){
       return root;
     } else if (stats.isDirectory()){
       root.children = fs.readdirSync(file);
-      console.log(root.children);
       if (root.children != ""){
         root.children = _.sortBy(root.children, function(num){
           var newFile = file + "/" + num;
