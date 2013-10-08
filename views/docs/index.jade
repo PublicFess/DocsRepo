@@ -39,6 +39,7 @@ block main
             div.dropdown-menu.dropdown(id=prefix)
               a(href='/file/' + elems[root.file]._id)= __("Preview file")
               a(href='/file/' + elems[root.file]._id + '/edit')= __("Edit file")
+              a(href='/file/' + elems[root.file]._id + '/settings')= __("Access settings")
               a(href='/file/' + elems[root.file]._id + '/rename',
               rel="popup")= __("Rename file")
               a(href='/file/' + elems[root.file]._id + '/delete',

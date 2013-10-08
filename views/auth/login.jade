@@ -2,8 +2,8 @@ extends layout
 
 block form
   form.partial(
-  method='post',
-  action='/login')
+    method='post',
+    action='/login')
     .ctl-row
       label(for='name')= __('Email')
       input#name.field.focus(

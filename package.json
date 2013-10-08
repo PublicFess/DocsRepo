@@ -27,7 +27,7 @@
     "mkdirp": "*",
     "latinize": "*",
     "nomnom": "*",
-    "share": "*",
+    "share": "0.6",
     "connect": "1.9.2"
   },
   "devDependencies": {

@@ -21,3 +21,4 @@ require('./file');
 require('./folder');
 require('./share-docs');
 require('./administration');
+require('./user');

@@ -13,9 +13,7 @@ var express = require('express')
   , Element = require('./model/element')
   , mongoose = require('mongoose')
   , fs = require('fs')
-  , path = require('path')
-  , sharejs = require('share').server
-  , connect = require('connect');
+  , path = require('path');
 
 var app = module.exports = exports = express();
 
@@ -199,12 +197,24 @@ app.use(app.router);
 
 require('./routes/index');
 
+var connect = require('connect')
+  , sharejs = require('share').server;
+
+
+var server = http.createServer(app);
+
+var options = {db: {type: 'mongo'}};
+
+sharejs.attach(app, options);
+
 mongoose.connect(conf.mongoURL, function(err) {
   if (err) {
     console.log(err);
     process.exit(1);
   }
-  http.createServer(app).listen(conf.port, function() {
+
+  server.listen(conf.port, function(){
     console.log('Server is listening on ' + conf.port);
   });
+
 });

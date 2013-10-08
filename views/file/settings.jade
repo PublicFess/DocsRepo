@@ -22,9 +22,9 @@ block main
   .row
     .span-6
       h3= __("List of editors")
-      if (elem.editors != "")
-        each editor in elem.editors
-          p= editor
+      if (editors != "")
+        each editor in editors
+          p= editor.email
       else
         p= __("No editor was found")
     .span-6

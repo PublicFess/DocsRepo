@@ -59,6 +59,7 @@ $.scalpel.queue[':input[data-load-into][data-url]'] = function() {
         $.scalpel.init(out);
       }
     });
+
   }
 
   input.unbind(".remoteLoad")

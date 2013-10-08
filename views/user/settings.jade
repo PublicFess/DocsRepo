@@ -1,0 +1,43 @@
+extends layout
+
+block form
+
+  form.partial(method="post", action="/user/" + user._id +"/settings")
+    h2= __("Acount Settings")
+    .ctl-row
+      label= __('User name')
+        input#name.field.focus(
+        name='user[name]',
+        value=user.name,
+        type='text')
+    .ctl-row
+      label= __('Email')
+        input#password.field(
+        name='user[email]',
+        value=user.email
+        type='email')
+    h2= __("Change password")
+    .ctl-row
+      label= __('New password')
+        input#password.field(
+        name='user[newPassword]',
+        type='password')
+    .ctl-row
+      label= __('Confirm new password')
+        input#password.field(
+        name='user[confirmPassword]',
+        type='password')
+    h2= __('To confirm changes please enter your password')
+    .ctl-row
+      label= __('Old password')
+        input#password.field(
+        name='user[oldPassword]',
+        type='password')
+    .submits.margin-top.centered
+      button.btn.primary(type='submit')
+        span= __('Change settings')
+
+
+block main
+
+  block form

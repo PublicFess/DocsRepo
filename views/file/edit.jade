@@ -24,3 +24,23 @@ block main
         a.btn(href='/file/' + id)
           i.icon-eye-open
           span= __('View page')
+  script(src="/channel/bcsocket.js")
+  script(src="/share/share.js")
+  script(src="/share/textarea.js")
+  script.
+    $.scalpel.queue['#text'] = function() {
+      var id = $.sha256(window.location.href);
+      var textarea = this;
+
+      sharejs.open(id, 'text', function(error, doc) {
+
+        doc.attach_textarea(textarea);
+
+        console.log(doc)
+        doc.on('change', textarea.scheduleUpdates);
+        doc.on('closed', function(){
+          doc.close();
+        })
+
+      });
+    };

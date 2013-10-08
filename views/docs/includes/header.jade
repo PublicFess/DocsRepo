@@ -3,7 +3,9 @@
   #nav-top
     a.logo.noline(href="/")= __("Docs Repo")
     if user
-      &nbsp;
+      a.float-right.margin-right.noline(href="/logout")
+        i.icon.icon-off
+        span= __("Logout")
     else
       a(href="/login")= __("Login")
       a(href="/signup")= __("Sing up")

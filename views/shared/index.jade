@@ -2,7 +2,7 @@ extends layout
 
 block main
   ul
-    if (files.length < 0)
+    if (files.length > 0)
       each file in files
         li.relative
           i.icon-file

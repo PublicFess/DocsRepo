@@ -3,14 +3,17 @@
   #nav-top
     a.logo.noline(href="/")= __("Docs Repo")
     if user
+      a.float-right.margin-right.noline(href="/logout")
+        i.icon.icon-off
+        span= __("Logout")
       if (editor || owner)
         a#view(href='/file/' + id)= __("Preview file")
         a#edit(href='/file/' + id + '/edit')= __("Edit file")
       if (owner)
         a#settings(href='/file/' + id + '/settings')= __("Access settings")
-        a#rename(href='/file/rename/' + id,
+        a#rename(href='/file/' + id + '/rename',
         rel="popup")= __("Rename file")
-        a#delete(href='/file/delete/' + id,
+        a#delete(href='/file/' + id + '/delete',
         rel="popup")= __("Delete file")
     else
       a(href="/login")= __("Login")

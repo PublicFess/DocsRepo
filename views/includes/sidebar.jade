@@ -9,4 +9,6 @@ if user
       if admin
         a.noline(href="/admin/docs")= __("Documents")
         a.noline(href="/admin/users")= __("Users")
+      hr.dotted.margin-side
 
+      a.noline(href="/user/" + user._id + "/settings")= __("User settings")

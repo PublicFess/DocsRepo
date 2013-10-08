@@ -10,6 +10,29 @@ var app = require('../app')
   , mkdirp = require('mkdirp')
   , rho = require('rho');
 
+
+var client = require('share').client;
+
+var connection = new client.Connection('http://localhost:' + conf.port);
+
+client.open('hello', 'text', 'http://localhost:8000',
+  function(doc, error) {
+  // Insert some text at the start of the document (position 0):
+  doc.submitOp({i:"Hi there!\n", p:0});
+
+  doc.on('change', function(op) {
+    console.log('Version: ' + doc.version);
+  });
+
+  console.log(doc);
+  // Close the doc if you want your node app to exit cleanly
+  doc.close();
+                                                                   r
+  }
+);
+
+
+
 var checkOwner = function(user, file){
   if (file.owner.equals(user._id)){
     return true;
@@ -21,8 +44,9 @@ var checkOwner = function(user, file){
 var checkEditor = function(user, file){
   switch (file.state){
     case ("invite"):
+
       for (var i = 0; i < file.editors.length; i++){
-        if (file.editors[i] == user.email){
+        if (file.editors[i].equals(user._id)){
           return true
         }
       }
@@ -56,6 +80,36 @@ app.all('/file/:id*', function(req, res, next){
       req.elem = res.locals.elem = elem;
       next();
     });
+});
+
+app.get('/file/:id', function(req, res, next){
+  if (req.owner || req.editor){
+    req.rememberLocation();
+    var fullPath = conf.storagePath + "/" + req.elem.path;
+    fs.stat(fullPath, function(err, stat) {
+      if (err) {
+        if (err.code == 'ENOENT') {
+          res.statusCode = 404;
+          req.url += ".edit";
+          return next();
+        } else return next(err);
+      }
+      if (stat.isDirectory())
+        return next(new Error("File " + relPath + " resolves to a directory"));
+      fs.readFile(fullPath, { encoding: 'utf-8' }, function(err, text) {
+        if (err) return next(err);
+        rho.render(text, function(err, html) {
+          if (err) return next(err);
+          res.render('file/view', {
+            html: html,
+            id: req.elem._id
+          });
+        });
+      });
+    })
+  } else {
+    res.send(404, "You don't have access to this file")
+  }
 });
 
 app.get('/file/:id/new', function(req, res, next){
@@ -93,35 +147,6 @@ app.post('/file/:id/new', function(req, res, next){
           })
       });
     });
-  } else {
-    res.send(404, "You don't have access to this file")
-  }
-});
-
-app.get('/file/:id', function(req, res, next){
-  if (req.owner || req.editor){
-    var fullPath = conf.storagePath + "/" + req.elem.path;
-    fs.stat(fullPath, function(err, stat) {
-      if (err) {
-        if (err.code == 'ENOENT') {
-          res.statusCode = 404;
-          req.url += ".edit";
-          return next();
-        } else return next(err);
-      }
-      if (stat.isDirectory())
-        return next(new Error("File " + relPath + " resolves to a directory"));
-      fs.readFile(fullPath, { encoding: 'utf-8' }, function(err, text) {
-        if (err) return next(err);
-        rho.render(text, function(err, html) {
-          if (err) return next(err);
-          res.render('file/view', {
-            html: html,
-            id: req.elem._id
-          });
-        });
-      });
-    })
   } else {
     res.send(404, "You don't have access to this file")
   }
@@ -238,7 +263,11 @@ app.post('/file/:id/edit', function(req, res, next){
 
 app.get('/file/:id/settings', function(req, res, next){
   if (req.owner){
-    res.render('file/settings', {elem:req.elem, id:req.elem._id})
+    User.find({_id:{$in: req.elem.editors}})
+      .exec(function(err, users){
+        if (err) return next(err);
+        res.render('file/settings', {elem:req.elem, id:req.elem._id, editors: users})
+      });
   } else {
     res.send(404, "You don't have access to this file")
   }
@@ -260,14 +289,23 @@ app.post('/file/:id/settings/editors', function(req, res, next){
     .exec(function(err, user){
       if (err) return next(err);
       if (user){
-        req.elem.editors.push(req.param("email"));
-        req.elem.save(function(err, elem){
-          if (err) return next(err);
-          req.elem = res.locals.elem = elem;
-          res.json({
-            notices: res.notices.info("Editor was successfully added").get()
+        console.log(user);
+      }
+      if (user){
+        if (_.indexOf(req.elem.editors, user._id) < 0 && user.email != req.user.email) {
+          req.elem.editors.push(user._id);
+          req.elem.save(function(err, elem){
+            if (err) return next(err);
+            req.elem = res.locals.elem = elem;
+            res.json({
+              notices: res.notices.info("Editor was successfully added").get()
+            })
           })
-        })
+        } else {
+          res.json({
+            notices: res.notices.error("User with such email just editor of this file").get()
+          })
+        }
       } else {
         res.json({
           notices: res.notices.error("This email doesn't register").get()
@@ -281,9 +319,7 @@ app.delete('/file/:id/settings/editors', function(req, res, next){
     .exec(function(err, user){
       if (err) return next(err);
       if (user){
-
-
-        req.elem.editors.splice(_.indexOf(req.elem.editors, req.param("email")), 1);
+        req.elem.editors.splice(_.indexOf(req.elem.editors, user._id, 1));
         req.elem.save(function(err, elem){
           if (err) return next(err);
           req.elem = res.locals.elem = elem;

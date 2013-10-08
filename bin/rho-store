@@ -3,12 +3,6 @@
 
 var opts = require('nomnom')
 
-  .option('init', {
-    abbr:"i",
-    help: "first run must create root directory",
-    flag:true
-  })
-
   .option('admin', {
     abbr: "a",
     help: "create administration with --name --email --password",
@@ -16,17 +10,21 @@ var opts = require('nomnom')
   })
 
   .option('name', {
+    abbr:"n",
     help: 'Admin name',
     required: true
   })
 
   .option('email', {
+    abbr:"e",
     help: 'Admin email',
     required: true
   })
 
   .option('password', {
-    help: 'Password'
+    abbr:"p",
+    help: 'Password',
+    required: true
   })
 
   .parse();

@@ -136,5 +136,18 @@
 	"Are you sure? You want to delete 123!": "Are you sure? You want to delete 123!",
 	"Are you sure? You want to delete PublicFess!": "Are you sure? You want to delete PublicFess!",
 	"You don't have any share files": "You don't have any share files",
-	"You don't have any shared files.": "You don't have any shared files."
+	"You don't have any shared files.": "You don't have any shared files.",
+	"Are you sure? You want to delete 423!": "Are you sure? You want to delete 423!",
+	"User settings": "User settings",
+	"Acount Settings": "Acount Settings",
+	"Change settings": "Change settings",
+	"Change password": "Change password",
+	"Old password": "Old password",
+	"New password": "New password",
+	"Confirm new password": "Confirm new password",
+	"For confirm changes please enter your password": "For confirm changes please enter your password",
+	"To confirm changes please enter your password": "To confirm changes please enter your password",
+	"Invalid password": "Invalid password",
+	"User with such email have editor of this file": "User with such email have editor of this file",
+	"Are you sure? You want to rename 312.rho!": "Are you sure? You want to rename 312.rho!"
 }
