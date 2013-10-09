@@ -10,29 +10,6 @@ var app = require('../app')
   , mkdirp = require('mkdirp')
   , rho = require('rho');
 
-
-var client = require('share').client;
-
-var connection = new client.Connection('http://localhost:' + conf.port);
-
-client.open('hello', 'text', 'http://localhost:8000',
-  function(doc, error) {
-  // Insert some text at the start of the document (position 0):
-  doc.submitOp({i:"Hi there!\n", p:0});
-
-  doc.on('change', function(op) {
-    console.log('Version: ' + doc.version);
-  });
-
-  console.log(doc);
-  // Close the doc if you want your node app to exit cleanly
-  doc.close();
-                                                                   r
-  }
-);
-
-
-
 var checkOwner = function(user, file){
   if (file.owner.equals(user._id)){
     return true;
@@ -71,15 +48,22 @@ app.all('/file/:id*', function(req, res, next){
   if (!req.user){
     req.rememberLocation();
     return res.redirect("/login");
+  } else {
+    Element.findById(req.param("id"))
+      .exec(function(err, elem){
+        if (err) return next(err);
+        if (elem){
+          req.owner = res.locals.owner = checkOwner(req.user, elem);
+          req.editor = res.locals.editor = checkEditor(req.user, elem);
+          req.elem = res.locals.elem = elem;
+          next();
+        } else {
+          res.send(404);
+        }
+
+      });
   }
-  Element.findById(req.param("id"))
-    .exec(function(err, elem){
-      if (err) return next(err);
-      req.owner = res.locals.owner = checkOwner(req.user, elem);
-      req.editor = res.locals.editor = checkEditor(req.user, elem);
-      req.elem = res.locals.elem = elem;
-      next();
-    });
+
 });
 
 app.get('/file/:id', function(req, res, next){
@@ -136,13 +120,12 @@ app.post('/file/:id/new', function(req, res, next){
         if (err) return next(err);
         fs.writeFile(
           fullPath,
-          conf.helloText,
+          "",
           {encoding: "UTF-8"},
           function(err){
             if (err) return next(err);
-            console.log(req.cookies.loc);
             res.json({
-              redirect: req.lastLocation()
+              redirect: "/file/" + elem._id + "/edit"
             })
           })
       });
@@ -236,27 +219,18 @@ app.post('/file/:id/edit', function(req, res, next){
   var text = req.param('text').trim();
   var fullPath = conf.storagePath + "/" + req.elem.path;
   if (req.owner || req.editor){
-    if (text) {
-      var dir = path.dirname(fullPath);
-      mkdirp(dir, function(err) {
-        if (err) return next(err);
-        fs.writeFile(fullPath,
-          text,
-          { encoding: 'utf-8' },
-          function(err) {
-            if (err) return next(err);
-            res.json({
-              notices: res.notices.info('Saved.').get()
-            });
-          });
-      });
-    } else fs.unlink(fullPath, function(err) {
+    var dir = path.dirname(fullPath);
+    mkdirp(dir, function(err) {
       if (err) return next(err);
-      req.elem.remove();
-      res.json({
-        notices: res.notices.info('Page deleted.').get(),
-        redirect: req.lastLocation()
-      });
+      fs.writeFile(fullPath,
+        text,
+        { encoding: 'utf-8' },
+        function(err) {
+          if (err) return next(err);
+          res.json({
+            notices: res.notices.info('Saved.').get()
+          });
+        });
     });
   }
 });

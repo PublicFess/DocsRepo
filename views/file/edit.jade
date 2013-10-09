@@ -2,7 +2,7 @@ extends layout
 
 block main
   div(data-ref="#edit")
-  form.partial.unload-warn(method='post',
+  form#editform.partial.unload-warn(method='post',
   action='/file/' + id + '/edit')
     table.grid(width='100%')
       tr.top.border-bottom
@@ -16,14 +16,6 @@ block main
         td.sep(width='1%').no-mobile-screen
         td(width='49.5%').no-mobile-screen
           #preview.remote-fragment.pad!= html
-    .submits.centered.pad
-      button.btn.primary(type='submit')
-        i.icon-ok
-        span= __('Save')
-      if (text)
-        a.btn(href='/file/' + id)
-          i.icon-eye-open
-          span= __('View page')
   script(src="/channel/bcsocket.js")
   script(src="/share/share.js")
   script(src="/share/textarea.js")
@@ -32,15 +24,24 @@ block main
       var id = $.sha256(window.location.href);
       var textarea = this;
 
+
+
       sharejs.open(id, 'text', function(error, doc) {
 
-        doc.attach_textarea(textarea);
+        console.log(doc.snapshot.length);
 
-        console.log(doc)
-        doc.on('change', textarea.scheduleUpdates);
-        doc.on('closed', function(){
-          doc.close();
-        })
+        doc.del(0, doc.snapshot.length)
+
+        doc.insert(0, '#{text}')
+
+        doc.attach_textarea(textarea);
+        doc.on("change", function(){console.log(doc)})
+
+        window.onbeforeunload = function(){
+          $("#editform").submit();
+        }
+
+
 
       });
     };

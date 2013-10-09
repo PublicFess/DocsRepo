@@ -203,9 +203,14 @@ var connect = require('connect')
 
 var server = http.createServer(app);
 
-var options = {db: {type: 'mongo'}};
+var options = {
+  db: {type: 'mongo'},
+  browserChannel: {cors: '*'}
+};
 
 sharejs.attach(app, options);
+
+
 
 mongoose.connect(conf.mongoURL, function(err) {
   if (err) {

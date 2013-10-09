@@ -214,7 +214,8 @@ Version: 3.4.2 Timestamp: Mon Aug 12 15:04:12 PDT 2013
 }
 
 .select2-search {
-    display: inline-block;
+
+    display: none;
     width: 100%;
     min-height: 26px;
     margin: 0;

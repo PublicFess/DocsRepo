@@ -10,10 +10,11 @@ block main
           p.pad-side= user.email
           p.pad-side= user.role
         .span-5
-          p
-            a(href="/admin/user/"+ user._id +"/configure",
-              rel="popup")
-              = __("Configure")
+          if (user.role != "Administrator")
+            p
+              a(href="/admin/user/"+ user._id +"/configure",
+                rel="popup")
+                = __("Configure")
         .span-2
           if (user.role != "Administrator")
             a.normal.delete.float-right.noline(href="/admin/user/"+ user._id +"/delete",

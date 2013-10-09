@@ -149,5 +149,10 @@
 	"To confirm changes please enter your password": "To confirm changes please enter your password",
 	"Invalid password": "Invalid password",
 	"User with such email have editor of this file": "User with such email have editor of this file",
-	"Are you sure? You want to rename 312.rho!": "Are you sure? You want to rename 312.rho!"
+	"Are you sure? You want to rename 312.rho!": "Are you sure? You want to rename 312.rho!",
+	"Are you sure? You want to delete test.rho!": "Are you sure? You want to delete test.rho!",
+	"Are you sure? You want to delete test2.rho!": "Are you sure? You want to delete test2.rho!",
+	"Are you sure? You want to delete test3.rho!": "Are you sure? You want to delete test3.rho!",
+	"You can not change Administrator": "You can not change Administrator",
+	"Are you sure? You want to change publicfess!": "Are you sure? You want to change publicfess!"
 }

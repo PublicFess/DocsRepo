@@ -232,6 +232,7 @@ body{font-family:"HelveticaNeueLight","HelveticaNeue-Light","Helvetica Neue Ligh
 #topnav code{font-size:12px}
 #topnav .controls{position:absolute;top:4px;right:8px;}
 #topnav .controls a{display:inline-block;text-decoration:none;color:#777}
+.black-back2{background:rgba(0,0,0,0.2)}
 @media screen and (min-width:480px){#sidebar{width:216px;float:left}
 }#notices{z-index:100;}
 #notices .notice{position:relative;padding:8px 12px;margin:8px;background:rgba(0,0,0,0.8);color:#fff;-webkit-border-radius:6px;border-radius:6px;}

@@ -32,6 +32,7 @@ $.scalpel.queue['.autosize'] = function() {
 // Load remote markup
 
 $.scalpel.queue[':input[data-load-into][data-url]'] = function() {
+
   var input = $(this);
   var out = $(input.attr("data-load-into"));
   var t, text = input.val();
@@ -46,6 +47,7 @@ $.scalpel.queue[':input[data-load-into][data-url]'] = function() {
   }
 
   function loadUpdates() {
+    $("#editform").submit();
     $.ajax({
       type: 'post',
       url: url,
