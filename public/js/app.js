@@ -47,7 +47,6 @@ $.scalpel.queue[':input[data-load-into][data-url]'] = function() {
   }
 
   function loadUpdates() {
-    $("#editform").submit();
     $.ajax({
       type: 'post',
       url: url,

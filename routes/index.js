@@ -12,7 +12,12 @@ app.all("/*", function(req, res, next){
 });
 
 app.get('/', function(req, res, next){
-  res.render('index')
+  if (req.user) {
+    res.redirect("/docs")
+  } else {
+    res.render('index')
+  }
+
 });
 
 require('./auth');

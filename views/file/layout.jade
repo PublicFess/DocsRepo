@@ -8,8 +8,9 @@ block content
 
     include ../includes/sidebar
 
-    #frame
+    #wrap
+      #topnav
+        p= elem.title
+      #content.pad
 
-      #content.pad.margin
-        div.black-back2.pad= elem.title
         block main

@@ -18,7 +18,7 @@ app.all('/shared*', function(req, res, next){
 });
 
 app.get('/shared', function(req, res, next){
-  Element.find({editors: {$all:req.user._id}})
+  Element.find({editors: {$all:req.user._id}, state: {$ne: "private"}})
     .exec(function(err, elems){
       if (err) return next(err);
       res.render('shared/index', {files:elems});

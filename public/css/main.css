@@ -195,7 +195,7 @@ textarea.field{font-family:Monaco,Courier New,Courier,monospace;font-size:14px}
 label.descr{display:block;text-align:right;line-height:16px}
 label.error{position:relative;display:block;background:rgba(0,0,0,0.6);color:#fff;text-shadow:0 1px 1px #000;font-size:14px;padding:6px 12px;-webkit-border-radius:4px;border-radius:4px;margin-top:8px;border:2px solid #444;}
 label.error::after{content:'';display:block;position:absolute;top:-14px;left:16px;border:6px solid transparent;border-bottom-color:#444}
-.remote-fragment.process{-webkit-filter:blur(4px);-moz-filter:blur(4px);-o-filter:blur(4px);filter:blur(4px)}
+.remote-fragment.process{-webkit-filter:blur(2px);-moz-filter:blur(2px);-o-filter:blur(2px);filter:blur(2px)}
 i{opacity:.75;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";filter:alpha(opacity=75)}
 i + span,span + i{margin-left:8px}
 i.smooth{-webkit-font-smoothing:antialiased;-webkit-font-smoothing:antialiased;}
@@ -224,8 +224,7 @@ body{font-family:"HelveticaNeueLight","HelveticaNeue-Light","Helvetica Neue Ligh
 #sidebar .avatar img{vertical-align:middle}
 #sidebar .nav a{display:block;text-decoration:none;padding:8px 16px;font-size:1.1em;color:#555;}
 #sidebar .nav a.active,#sidebar .nav a:hover{color:#fff}
-#frame{margin-left:216px;border:1px solid transparent;background:rgba(0,0,0,0.5)}
-#content{background:#fff;min-height:480px;background:url("/img/bg/handmadepaper.png");-webkit-box-shadow:0 0 10px 0 rgba(0,0,0,0.5);box-shadow:0 0 10px 0 rgba(0,0,0,0.5);}
+#content{background:#fff;min-height:480px;margin-left:216px;-webkit-box-shadow:0 0 20px 0 rgba(0,0,0,0.5) inset;box-shadow:0 0 20px 0 rgba(0,0,0,0.5) inset;}
 #content:before{display:block;content:""}
 #footer{clear:both;padding:8px 16px;font-size:13px;color:#bbb}
 #topnav{position:relative;border-bottom:1px solid #ccc;min-height:16px;line-height:16px;font-size:13px;padding:4px 8px;}
@@ -233,6 +232,9 @@ body{font-family:"HelveticaNeueLight","HelveticaNeue-Light","Helvetica Neue Ligh
 #topnav .controls{position:absolute;top:4px;right:8px;}
 #topnav .controls a{display:inline-block;text-decoration:none;color:#777}
 .black-back2{background:rgba(0,0,0,0.2)}
+#wrap-doc{position:relative}
+#left-side,#right-side{position:absolute;width:50%;overflow:auto}
+#right-side{right:0}
 @media screen and (min-width:480px){#sidebar{width:216px;float:left}
 }#notices{z-index:100;}
 #notices .notice{position:relative;padding:8px 12px;margin:8px;background:rgba(0,0,0,0.8);color:#fff;-webkit-border-radius:6px;border-radius:6px;}

@@ -197,20 +197,7 @@ app.use(app.router);
 
 require('./routes/index');
 
-var connect = require('connect')
-  , sharejs = require('share').server;
-
-
 var server = http.createServer(app);
-
-var options = {
-  db: {type: 'mongo'},
-  browserChannel: {cors: '*'}
-};
-
-sharejs.attach(app, options);
-
-
 
 mongoose.connect(conf.mongoURL, function(err) {
   if (err) {

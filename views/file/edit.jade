@@ -13,35 +13,12 @@ block main
           rows='24',
           data-load-into='#preview',
           data-url='/render')= text
-        td.sep(width='1%').no-mobile-screen
         td(width='49.5%').no-mobile-screen
           #preview.remote-fragment.pad!= html
-  script(src="/channel/bcsocket.js")
-  script(src="/share/share.js")
-  script(src="/share/textarea.js")
-  script.
-    $.scalpel.queue['#text'] = function() {
-      var id = $.sha256(window.location.href);
-      var textarea = this;
-
-
-
-      sharejs.open(id, 'text', function(error, doc) {
-
-        console.log(doc.snapshot.length);
-
-        doc.del(0, doc.snapshot.length)
-
-        doc.insert(0, '#{text}')
-
-        doc.attach_textarea(textarea);
-        doc.on("change", function(){console.log(doc)})
-
-        window.onbeforeunload = function(){
-          $("#editform").submit();
-        }
-
-
-
-      });
-    };
+    .submits.centered.pad
+      button.btn.primary(type='submit')
+        i.icon-ok
+        span= __('Save')
+      a.btn(href='#{relPath}.html')
+        i.icon-eye-open
+        span= __('View page')

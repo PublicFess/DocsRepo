@@ -8,7 +8,8 @@ var app = require('../app')
   , conf = require('../conf')
   , _ = require('underscore')
   , mkdirp = require('mkdirp')
-  , rho = require('rho');
+  , rho = require('rho')
+  , utils = require('../utils');
 
 var checkOwner = function(user, file){
   if (file.owner.equals(user._id)){
@@ -67,6 +68,7 @@ app.all('/file/:id*', function(req, res, next){
 });
 
 app.get('/file/:id', function(req, res, next){
+
   if (req.owner || req.editor){
     req.rememberLocation();
     var fullPath = conf.storagePath + "/" + req.elem.path;
@@ -262,9 +264,6 @@ app.post('/file/:id/settings/editors', function(req, res, next){
   User.findOne({email:req.param("email")})
     .exec(function(err, user){
       if (err) return next(err);
-      if (user){
-        console.log(user);
-      }
       if (user){
         if (_.indexOf(req.elem.editors, user._id) < 0 && user.email != req.user.email) {
           req.elem.editors.push(user._id);

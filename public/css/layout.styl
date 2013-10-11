@@ -60,16 +60,12 @@ body
     &.active, &:hover
       color: #fff
 
-#frame
-  margin-left:216px
-  border:1px solid transparent
-  background:rgba(0,0,0,.5)
 
 #content
   background: #fff
   min-height: 480px
-  background: url("/img/bg/handmadepaper.png")
-  box-shadow: 0px 0px 10px 0px rgba(0,0,0,.5);
+  margin-left:216px
+  box-shadow: 0px 0px 20px 0px rgba(0,0,0,.5) inset;
   &:before
     display:block
     content: ""
@@ -100,6 +96,18 @@ body
 
 .black-back2
   background: rgba(0,0,0,.2)
+
+#wrap-doc
+  position:relative
+
+#left-side,
+#right-side
+  position: absolute
+  width: 50%
+  overflow: auto
+
+#right-side
+  right:0
 
 @media screen and (min-width:480px)
   #sidebar
