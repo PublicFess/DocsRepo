@@ -31,7 +31,7 @@ block main
             each val in root.children
               mixin mkstructure(val, elements, prefix)
         else
-          li.relative.margin-left
+          li.relative.margin-left.no-list
             i.icon-file
             span: a(href="javascript:;",
             data-switch="#" + prefix)= elems[root.file].title

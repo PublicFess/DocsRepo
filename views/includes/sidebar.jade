@@ -1,7 +1,7 @@
 if user
   #sidebar
     a.pad.avatar(href='/')
-      img(src=cdn('/img/imgres.jpg'))
+      img(src='http://gravatar.com/avatar/' + email + '?s=200&d=identicon')
     .nav
       a.noline(href="/docs")= __("My documents")
       a.noline(href="/shared")= __("Shared with me")

@@ -75,6 +75,7 @@ app.use(function(req, res, next) {
         if (err) return next(err);
         if (user) {
           res.locals.user = req.user = user;
+          res.locals.email = utils.md5(user.email);
         }
         return next();
       });

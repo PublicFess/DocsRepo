@@ -4,29 +4,38 @@ html, body, form, fieldset, img
   border: 0
 
 a, a:visited
-  color: #8d8d8d
+  color: #aaa
+  text-decoration:none
 
 a:hover
-  color: #222
+  color: #444
+
+a.active
+  color: #444
+  text-decoration:underline
 
 body
   font-family: font-sans
   font-size: font-size
   font-weight: font-sans-weight
-  background: url('/img/bg/body.png') repeat
+  background: #ccc
+  background-image: url('/img/bg/png.png')
+  margin:16px
 
 #header
   position:relative
+  box-shadow: 5px 5px 10px -3px rgba(0,0,0,0.5);
 
-#container
-  background: #ccc
-  background-image: url('/img/bg/1.png')
+#frame
+  margin-left:232px
 
 #nav-top
-  height: 80px
+  border: 1px solid #aaa
+  background: #fff
+  height: 60px
   width:100%
   >a, >span
-    line-height:80px
+    line-height:60px
     vertical-align:middle
     font-size: 1.1em
     padding: 0px 16px
@@ -36,12 +45,13 @@ body
     width: 184px
     font-size: 1.2em
     color: #999
-  .active
-    color: #fff
 
 #sidebar
+  border: 1px solid #aaa;
   position:relative
-
+  background:#fff
+  padding-bottom:8px
+  box-shadow: 5px 5px 10px -3px rgba(0,0,0,0.5);
   .avatar
     display:block
     text-align:center
@@ -49,23 +59,17 @@ body
     height:184px
     img
       vertical-align:middle
-
-
   .nav a
     display:block
     text-decoration:none
     padding: 8px 16px
     font-size: 1.1em
-    color: #555
-    &.active, &:hover
-      color: #fff
-
 
 #content
   background: #fff
   min-height: 480px
-  margin-left:216px
-  box-shadow: 0px 0px 20px 0px rgba(0,0,0,.5) inset;
+  border: 1px solid #aaa;
+  box-shadow: 5px 5px 10px -3px rgba(0,0,0,0.5);
   &:before
     display:block
     content: ""

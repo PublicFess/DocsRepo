@@ -5,12 +5,10 @@ block content
   include includes/header
 
   #container
-
     include ../includes/sidebar
-
-    #wrap
-      #topnav
-        p= elem.title
+    #frame
       #content.pad
-
+        #wrap
+          #topnav
+            p= elem.title
         block main

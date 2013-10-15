@@ -6,7 +6,7 @@ block main
   action='/file/' + id + '/edit')
     table.grid(width='100%')
       tr.top.border-bottom
-        td(width='49.5%')
+        td(width='49.5%').border-right
           textarea#text.focus.field.hollow.autosize(
           name='text',
           cols='80',
@@ -19,6 +19,6 @@ block main
       button.btn.primary(type='submit')
         i.icon-ok
         span= __('Save')
-      a.btn(href='#{relPath}.html')
+      a.black.btn(href='/file/' + id)
         i.icon-eye-open
         span= __('View page')
